@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// CONTROLLERS
+use App\Http\Controllers\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    // ROLE
+    Route::get('/role', [RoleController::class, 'index']);
+    Route::get('/role/datatable', [RoleController::class, 'datatable']);
+    Route::get('/role/{id}', [RoleController::class, 'show']);
+    Route::put('/role/{id}', [RoleController::class, 'update']);
+    Route::delete('/role/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::put('/role/restore/{id}', [RoleController::class, 'restore']);
+
+
+// });
