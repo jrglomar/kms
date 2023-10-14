@@ -42,8 +42,7 @@ class RoleController extends Controller
     {
 
         $request->validate([
-            'title' => 'required',
-            'description' => 'required'
+            'title' => 'required'
         ]);
 
         return Role::create($request->all());
@@ -52,9 +51,9 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(Role $role, $id)
     {
-        return Role::find($role);
+        return Role::find($id);
     }
 
     /**

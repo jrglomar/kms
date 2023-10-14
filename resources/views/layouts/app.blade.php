@@ -27,6 +27,7 @@
 
             <div class="container-fluid">
 
+
                 {{-- YIELD OF CONTENT --}}
                 @yield('content')
 
@@ -36,6 +37,9 @@
 
     {{-- SCRIPTS INCLUDES --}}
     @include('layouts.scripts-includes')
+
+    {{-- GLOBAL SCRIPTS --}}
+    @include('layouts.global-scripts-includes')
 
     {{-- YIELD OF SCRIPTS --}}
     @yield('scripts')

@@ -16,9 +16,15 @@ class RoleSeeder extends Seeder
         // DEFAULT ROLES
         DB::table('roles')->insert([
             'title' => 'Admin',
-            'description' => '',
-            'created_at' => '2022-08-24 16:33:33',
-            'updated_at' => '2022-08-24 16:33:33'
+            'created_at' => '2023-10-14 16:33:33',
+            'updated_at' => '2023-10-14 16:33:33'
+        ]);
+
+        // DEFAULT ROLES
+        DB::table('roles')->insert([
+            'title' => 'User',
+            'created_at' => '2023-10-14 16:33:33',
+            'updated_at' => '2023-10-14 16:33:33'
         ]);
 
     }

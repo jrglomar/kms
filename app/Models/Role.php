@@ -18,7 +18,16 @@ class Role extends Model
         'description',
     ];
 
-     // DATES
-     protected $dates = ['deleted_at'];
+    // DATES
+    protected $dates = ['deleted_at'];
 
+    // RELATIONSHIP
+    public function users()
+    {
+        return $this->hasMany(User::class, 'role_id')->without('roles');
+    }
+
+
+    // AUTO LOADING RELATIONSHIP
+    protected $with = ["users"];
 }
