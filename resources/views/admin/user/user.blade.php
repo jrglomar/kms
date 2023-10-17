@@ -202,7 +202,6 @@
                         {
                             data: "deleted_at",
                             render: function(data, type, row) {
-                                console.log(data)
                                 if (data == null) {
                                     return `<div>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>

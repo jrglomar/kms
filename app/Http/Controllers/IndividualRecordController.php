@@ -42,7 +42,16 @@ class IndividualRecordController extends Controller
     {
 
         $request->validate([
-            'title' => 'required'
+            'first_name' => 'required',
+            'middle_name' => 'required',
+            'last_name' => 'required',
+            'gender' => 'required',
+            'birthdate' => 'required',
+            'height' => 'required',
+            'weight' => 'required',
+            'bmi' => 'required',
+            'status' => 'required',
+            'id_number' => 'required|unique:individual_records',
         ]);
 
         return IndividualRecord::create($request->all());

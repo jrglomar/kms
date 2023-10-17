@@ -42,7 +42,8 @@ class AnnouncementController extends Controller
     {
 
         $request->validate([
-            'title' => 'required'
+            'title' => 'required',
+            'description' => 'required'
         ]);
 
         return Announcement::create($request->all());

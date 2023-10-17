@@ -27,7 +27,6 @@ return new class extends Migration {
             $table->float('height');
             $table->float('weight');
             $table->float('bmi');
-            $table->string('bmi_category');
             $table->string('status');
         });
     }

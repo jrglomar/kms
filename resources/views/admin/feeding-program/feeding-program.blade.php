@@ -384,7 +384,6 @@
                 $.each(form, function() {
                     form_data[[this.name.slice(0, -5)]] = this.value;
                 })
-                console.log("🚀 ~ file: feeding-program.blade.php:355 ~ $ ~ form_data:", form_data)
 
                 // ajax opening tag
                 $.ajax({

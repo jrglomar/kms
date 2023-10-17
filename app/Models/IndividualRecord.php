@@ -25,8 +25,8 @@ class IndividualRecord extends Model
         'height',
         'weight',
         'bmi',
-        'bmi_category',
         'status',
+        'id_number',
     ];
 
     // DATES

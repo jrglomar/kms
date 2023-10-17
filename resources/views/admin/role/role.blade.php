@@ -19,10 +19,10 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h5 class="card-title fw-semibold mb-4 text-black">Edit {{ Str::singular($page_title) }}</h5>
-                    <form>
+                    <form id="editForm">
                         <div class="mb-3">
                             <label for="title_edit" class="form-label">Title</label>
-                            <input type="email" class="form-control" id="title_edit" aria-describedby="title">
+                            <input type="email" class="form-control" id="title_edit" name="title_edit" aria-describedby="title">
                         </div>
                     </form>
 
@@ -133,7 +133,6 @@
                         {
                             data: "deleted_at",
                             render: function(data, type, row) {
-                                console.log(data)
                                 if (data == null) {
                                     return `<div>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>
@@ -299,10 +298,13 @@
 
                 // FORM DATA
                 var form = $("#editForm").serializeArray();
-                var form_data = {
-                    "title": $('#title_edit').val(),
-                    "description": $('#description_edit').val(),
-                }
+                let form_data = {}
+
+                $.each(form, function() {
+                    form_data[[this.name.slice(0, -5)]] = this.value;
+                })
+                console.log("🚀 ~ file: role.blade.php:306 ~ $.each ~ form_data:", form_data)
+
 
                 // ajax opening tag
                 $.ajax({
