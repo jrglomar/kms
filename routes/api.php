@@ -1,11 +1,18 @@
 <?php
 
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // CONTROLLERS
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FeedingProgramController;
+use App\Http\Controllers\ContentDirectoryController;
+use App\Http\Controllers\IndividualRecordController;
+use App\Http\Controllers\FeedingProgramIRLogsController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\FaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +28,75 @@ use App\Http\Controllers\UserController;
 // Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ROLE
-    Route::get('/role', [RoleController::class, 'index']);
-    Route::get('/role/datatable', [RoleController::class, 'datatable']);
-    Route::post('/role', [RoleController::class, 'store']);
-    Route::get('/role/{id}', [RoleController::class, 'show']);
-    Route::put('/role/{id}', [RoleController::class, 'update']);
-    Route::delete('/role/destroy/{id}', [RoleController::class, 'destroy']);
-    Route::put('/role/restore/{id}', [RoleController::class, 'restore']);
+    Route::get('/roles', [RoleController::class, 'index']);
+    Route::get('/roles/datatable', [RoleController::class, 'datatable']);
+    Route::post('/roles', [RoleController::class, 'store']);
+    Route::get('/roles/{id}', [RoleController::class, 'show']);
+    Route::put('/roles/{id}', [RoleController::class, 'update']);
+    Route::delete('/roles/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::put('/roles/restore/{id}', [RoleController::class, 'restore']);
 
     // USER
-    Route::get('/user', [UserController::class, 'index']);
-    Route::get('/user/datatable', [UserController::class, 'datatable']);
-    Route::post('/user', [UserController::class, 'store']);
-    Route::get('/user/{id}', [UserController::class, 'show']);
-    Route::put('/user/{id}', [UserController::class, 'update']);
-    Route::delete('/user/destroy/{id}', [UserController::class, 'destroy']);
-    Route::put('/user/restore/{id}', [UserController::class, 'restore']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/datatable', [UserController::class, 'datatable']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/destroy/{id}', [UserController::class, 'destroy']);
+    Route::put('/users/restore/{id}', [UserController::class, 'restore']);
+
+    // INDIVIDUAL RECORD
+    Route::get('/individual_records', [IndividualRecordController::class, 'index']);
+    Route::get('/individual_records/datatable', [IndividualRecordController::class, 'datatable']);
+    Route::post('/individual_records', [IndividualRecordController::class, 'store']);
+    Route::get('/individual_records/{id}', [IndividualRecordController::class, 'show']);
+    Route::put('/individual_records/{id}', [IndividualRecordController::class, 'update']);
+    Route::delete('/individual_records/destroy/{id}', [IndividualRecordController::class, 'destroy']);
+    Route::put('/individual_records/restore/{id}', [IndividualRecordController::class, 'restore']);
+
+    // FEEDING PROGRAM
+    Route::get('/feeding_programs', [FeedingProgramController::class, 'index']);
+    Route::get('/feeding_programs/datatable', [FeedingProgramController::class, 'datatable']);
+    Route::post('/feeding_programs', [FeedingProgramController::class, 'store']);
+    Route::get('/feeding_programs/{id}', [FeedingProgramController::class, 'show']);
+    Route::put('/feeding_programs/{id}', [FeedingProgramController::class, 'update']);
+    Route::delete('/feeding_programs/destroy/{id}', [FeedingProgramController::class, 'destroy']);
+    Route::put('/feeding_programs/restore/{id}', [FeedingProgramController::class, 'restore']);
+
+    // FEEDING PROGRAM IR LOGS
+    Route::get('/feeding_program_ir_logs', [FeedingProgramIRLogsController::class, 'index']);
+    Route::get('/feeding_program_ir_logs/datatable', [FeedingProgramIRLogsController::class, 'datatable']);
+    Route::post('/feeding_program_ir_logs', [FeedingProgramIRLogsController::class, 'store']);
+    Route::get('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'show']);
+    Route::put('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'update']);
+    Route::delete('/feeding_program_ir_logs/destroy/{id}', [FeedingProgramIRLogsController::class, 'destroy']);
+    Route::put('/feeding_program_ir_logs/restore/{id}', [FeedingProgramIRLogsController::class, 'restore']);
+
+    // FEEDING PROGRAM IR LOGS
+    Route::get('/content_directories', [ContentDirectoryController::class, 'index']);
+    Route::get('/content_directories/datatable', [ContentDirectoryController::class, 'datatable']);
+    Route::post('/content_directories', [ContentDirectoryController::class, 'store']);
+    Route::get('/content_directories/{id}', [ContentDirectoryController::class, 'show']);
+    Route::put('/content_directories/{id}', [ContentDirectoryController::class, 'update']);
+    Route::delete('/content_directories/destroy/{id}', [ContentDirectoryController::class, 'destroy']);
+    Route::put('/content_directories/restore/{id}', [ContentDirectoryController::class, 'restore']);
+
+    // FEEDING PROGRAM IR LOGS
+    Route::get('/announcements', [AnnouncementController::class, 'index']);
+    Route::get('/announcements/datatable', [AnnouncementController::class, 'datatable']);
+    Route::post('/announcements', [AnnouncementController::class, 'store']);
+    Route::get('/announcements/{id}', [AnnouncementController::class, 'show']);
+    Route::put('/announcements/{id}', [AnnouncementController::class, 'update']);
+    Route::delete('/announcements/destroy/{id}', [AnnouncementController::class, 'destroy']);
+    Route::put('/announcements/restore/{id}', [AnnouncementController::class, 'restore']);
+
+    // FEEDING PROGRAM IR LOGS
+    Route::get('/faqs', [FaqController::class, 'index']);
+    Route::get('/faqs/datatable', [FaqController::class, 'datatable']);
+    Route::post('/faqs', [FaqController::class, 'store']);
+    Route::get('/faqs/{id}', [FaqController::class, 'show']);
+    Route::put('/faqs/{id}', [FaqController::class, 'update']);
+    Route::delete('/faqs/destroy/{id}', [FaqController::class, 'destroy']);
+    Route::put('/faqs/restore/{id}', [FaqController::class, 'restore']);
 
 // });

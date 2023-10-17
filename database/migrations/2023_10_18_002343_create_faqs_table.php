@@ -4,22 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('faqs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
             // FOR SOFT DELETES
             $table->softDeletes();
 
-             // ADDED ATTR
-             $table->string('title')->unique();
+            // ADDED ATTR
+            $table->string('title');
+            $table->longText('description');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('faqs');
     }
 };

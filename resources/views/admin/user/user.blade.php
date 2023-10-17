@@ -158,7 +158,7 @@
             var APP_URL = "{{ env('APP_URL') }}"
             var API_URL = "{{ env('API_URL') }}"
             var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/user'
+            var BASE_API = API_URL + '/users'
 
             // DATATABLE FUNCTION
             function dataTable() {
@@ -487,7 +487,7 @@
 
             function fetch_roles() {
                 $.ajax({
-                    url: API_URL + '/role',
+                    url: API_URL + '/roles',
                     method: "GET",
                     headers: {
                         "Accept": "application/json",

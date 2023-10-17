@@ -102,7 +102,7 @@
             var APP_URL = "{{ env('APP_URL') }}"
             var API_URL = "{{ env('API_URL') }}"
             var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/role'
+            var BASE_API = API_URL + '/roles'
 
             // DATATABLE FUNCTION
             function dataTable() {
