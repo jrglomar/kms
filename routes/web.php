@@ -33,6 +33,11 @@ Route::group(
             return view('admin/feeding-program/feeding-program', ['page_title' => 'Feeding Programs']);
         })->name('admin_feeding_program');
 
+        Route::get('/feeding_programs/feeding_program/{id}', function ($id) {
+            return view('admin/feeding-program/view-feeding-program', ['page_title' => 'Feeding Programs', 'feeding_program_id' => $id]);
+        })->name('admin_feeding_program_details');
+
+
         // ------------ANNOUNCEMENTS--------------- //
         Route::get('/announcements', function () {
             return view('admin/announcement/announcement', ['page_title' => 'Announcements']);

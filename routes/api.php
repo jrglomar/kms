@@ -68,11 +68,12 @@ use App\Http\Controllers\FaqController;
     Route::get('/feeding_program_ir_logs/datatable', [FeedingProgramIRLogsController::class, 'datatable']);
     Route::post('/feeding_program_ir_logs', [FeedingProgramIRLogsController::class, 'store']);
     Route::get('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'show']);
+    Route::get('/feeding_program_ir_logs/search/{id}', [FeedingProgramIRLogsController::class, 'search']);
     Route::put('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'update']);
     Route::delete('/feeding_program_ir_logs/destroy/{id}', [FeedingProgramIRLogsController::class, 'destroy']);
     Route::put('/feeding_program_ir_logs/restore/{id}', [FeedingProgramIRLogsController::class, 'restore']);
 
-    // FEEDING PROGRAM IR LOGS
+    // CONTENT_DIRECTORY
     Route::get('/content_directories', [ContentDirectoryController::class, 'index']);
     Route::get('/content_directories/datatable', [ContentDirectoryController::class, 'datatable']);
     Route::post('/content_directories', [ContentDirectoryController::class, 'store']);
@@ -81,7 +82,7 @@ use App\Http\Controllers\FaqController;
     Route::delete('/content_directories/destroy/{id}', [ContentDirectoryController::class, 'destroy']);
     Route::put('/content_directories/restore/{id}', [ContentDirectoryController::class, 'restore']);
 
-    // FEEDING PROGRAM IR LOGS
+    // ANOUNCEMENTS
     Route::get('/announcements', [AnnouncementController::class, 'index']);
     Route::get('/announcements/datatable', [AnnouncementController::class, 'datatable']);
     Route::post('/announcements', [AnnouncementController::class, 'store']);
@@ -90,7 +91,7 @@ use App\Http\Controllers\FaqController;
     Route::delete('/announcements/destroy/{id}', [AnnouncementController::class, 'destroy']);
     Route::put('/announcements/restore/{id}', [AnnouncementController::class, 'restore']);
 
-    // FEEDING PROGRAM IR LOGS
+    // FAQS
     Route::get('/faqs', [FaqController::class, 'index']);
     Route::get('/faqs/datatable', [FaqController::class, 'datatable']);
     Route::post('/faqs', [FaqController::class, 'store']);

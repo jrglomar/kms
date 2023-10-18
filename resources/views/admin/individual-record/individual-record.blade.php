@@ -172,6 +172,23 @@
                 <tbody>
 
                 </tbody>
+                <tfoot>
+                    <tr class="text-dark">
+                        <th class="not-export-column">ID</th>
+                        <th class="not-export-column">Created at</th>
+                        <th>ID Number</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Birthdate</th>
+                        <th>Gender</th>
+                        <th>Height(cm)</th>
+                        <th>Weight(kg)</th>
+                        <th>BMI</th>
+                        <th>BMI Category</th>
+                        <th class="not-export-column">Action</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -190,12 +207,37 @@
             var API_TOKEN = localStorage.getItem("API_TOKEN")
             var BASE_API = API_URL + '/individual_records'
 
+            function check_bmi_category(bmi) {
+                let bmi_category = ''
+                if (bmi < 18.5)
+                    bmi_category = "Underweight"
+                else if (bmi > 18.5 && bmi < 25)
+                    bmi_category = "Normal Weight"
+                else if (bmi > 25 && bmi < 30)
+                    bmi_category = "Overweight"
+                else if (bmi > 30 && bmi < 35)
+                    bmi_category = "Obese Class I"
+                else if (bmi > 35 && bmi < 40)
+                    bmi_category = "Obese Class II"
+                else if (bmi > 40)
+                    bmi_category = "Obese Class I"
+                return bmi_category
+            }
+
             // DATATABLE FUNCTION
             function dataTable() {
+                // FOR FOOTER GENERATE OF INPUT
+                $('#dataTable tfoot th').each(function(i) {
+                    var title = $('#dataTable thead th').eq($(this).index()).text();
+                    $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
+                        '" data-index="' + i + '" />');
+                });
+
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
                         url: BASE_API + '/datatable'
                     },
+                    // "searching": false,
                     "processing": true,
                     "serverSide": true,
                     "lengthMenu": [
@@ -250,26 +292,27 @@
                             data: "bmi",
                         },
                         {
-                            data: "bmi",
+                            data: "bmi_category",
                             render: function(data, type, row) {
-                                if (data < 18.5)
+                                let bmi_category
+                                if (data == "Underweight")
                                     bmi_category =
-                                    `<span class="btn btn-sm btn-light">Underweight</span>`
-                                if (data > 18.5 && data < 25)
+                                    `<span class="btn btn-sm btn-light">${data}</span>`
+                                else if (data == "Normal Weight")
                                     bmi_category =
-                                    `<span class="btn btn-sm btn-success">Normal Weight</span>`
-                                if (data > 25 && data < 30)
+                                    `<span class="btn btn-sm btn-success">${data}</span>`
+                                else if (data == "Overweight")
                                     bmi_category =
-                                    `<span class="btn btn-sm btn-warning">Overweight</span>`
-                                if (data > 30 && data < 35)
+                                    `<span class="btn btn-sm btn-warning">${data}</span>`
+                                else if (data == "Obese Class I")
                                     bmi_category =
-                                    `<button class="btn btn-sm btn-danger">Obese Class I</button>`
-                                if (data > 35 && data < 40)
+                                    `<button class="btn btn-sm btn-danger">${data}</button>`
+                                else if (data == "Obese Class II")
                                     bmi_category =
-                                    `<span class="btn btn-sm btn-danger">Obese Class II</span>`
-                                if (data > 40)
+                                    `<span class="btn btn-sm btn-danger">${data}</span>`
+                                else if (data == "Obese Class III")
                                     bmi_category =
-                                    `<span class="btn btn-sm btn-danger">Obese Class III</span>`
+                                    `<span class="btn btn-sm btn-danger">${data}</span>`
                                 return bmi_category
                             }
                         },
@@ -301,43 +344,18 @@
                         [1, "desc"]
                     ],
 
-                    // EXPORTING AS PDF
-                    'dom': 'Blrtip',
-                    'buttons': {
-                        dom: {
-                            button: {
-                                tag: 'button',
-                                className: ''
-                            }
-                        },
-                        buttons: [{
-                            extend: 'pdfHtml5',
-                            text: 'Export as PDF',
-                            orientation: 'landscape',
-                            pageSize: 'LEGAL',
-                            exportOptions: {
-                                // columns: ':visible',
-                                columns: ":not(.not-export-column)",
-                                modifier: {
-                                    order: 'current'
-                                }
-                            },
-                            className: 'btn btn-sm btn-dark my-2',
-                            titleAttr: 'PDF export.',
-                            extension: '.pdf',
-                            download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
-                            title: function() {
-                                return "List of {{ $page_title }}"
-                            },
-                            filename: function() {
-                                return "List of {{ $page_title }}"
-                            },
-                            customize: function(doc) {
-                                doc.styles.tableHeader.alignment = 'left';
-                            }
-                        }, ]
-                    },
+
                 })
+
+                // FOOTER FILTER
+                $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
+                    console.log(this.value)
+                    console.log(dataTable)
+                    dataTable
+                        .column($(this).data('index'))
+                        .search(this.value)
+                        .draw();
+                });
 
                 // TO ADD BUTTON TO DIV TABLE ACTION
                 dataTable.buttons().container().appendTo('#tableActions');
@@ -367,7 +385,10 @@
 
                 // BMI COMPUTATION
                 let bmi = (form_data.weight / form_data.height / form_data.height) * 10000
+
                 form_data.bmi = bmi;
+                form_data.bmi_category = check_bmi_category(bmi)
+
                 form_data.status = 'Active';
 
                 let randomId = Math.floor(Date.now() * Math.random());
@@ -461,7 +482,9 @@
                     form_data[[this.name.slice(0, -5)]] = this.value;
                 })
                 let bmi = (form_data.weight / form_data.height / form_data.height) * 10000
+
                 form_data.bmi = bmi;
+                form_data.bmi_category = check_bmi_category(bmi)
 
                 // ajax opening tag
                 $.ajax({

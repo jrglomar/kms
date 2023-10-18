@@ -28,11 +28,11 @@ class FeedingProgram extends Model
     protected $dates = ['deleted_at'];
 
     // RELATIONSHIP
-    public function feeding_program_ir_logs()
+    public function feeding_feeding_program_ir_logs()
     {
         return $this->hasMany(FeedingProgramIRLogs::class, 'feeding_program_id')->without('feeding_programs');
     }
 
     // AUTO LOADING RELATIONSHIP
-    protected $with = ["feeding_program_ir_logs"];
+    // protected $with = ["feeding_feeding_program_ir_logs"];
 }

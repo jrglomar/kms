@@ -206,6 +206,7 @@
                                 console.log(data)
                                 if (data == null) {
                                     return `<div>
+                                        <button id="${row.id}" type="button" class="btn btn-sm btn-info btnView">View</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-danger btnDelete">Delete</button>
                                         </div>`;
@@ -229,41 +230,7 @@
                     ],
 
                     // EXPORTING AS PDF
-                    'dom': 'Blrtip',
-                    'buttons': {
-                        dom: {
-                            button: {
-                                tag: 'button',
-                                className: ''
-                            }
-                        },
-                        buttons: [{
-                            extend: 'pdfHtml5',
-                            text: 'Export as PDF',
-                            orientation: 'landscape',
-                            pageSize: 'LEGAL',
-                            exportOptions: {
-                                // columns: ':visible',
-                                columns: ":not(.not-export-column)",
-                                modifier: {
-                                    order: 'current'
-                                }
-                            },
-                            className: 'btn btn-sm btn-dark my-2',
-                            titleAttr: 'PDF export.',
-                            extension: '.pdf',
-                            download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
-                            title: function() {
-                                return "List of {{ $page_title }}"
-                            },
-                            filename: function() {
-                                return "List of {{ $page_title }}"
-                            },
-                            customize: function(doc) {
-                                doc.styles.tableHeader.alignment = 'left';
-                            }
-                        }, ]
-                    },
+
                 })
 
                 // TO ADD BUTTON TO DIV TABLE ACTION
@@ -329,6 +296,15 @@
                 })
             });
             // END OF CREATE FUNCTION
+
+            // VIEW FUNCTION
+            $(document).on('click', '.btnView', function() {
+                var id = this.id;
+                var redirect_to = APP_URL + '/admin/feeding_programs/feeding_program/' + id;
+
+                window.location = redirect_to;
+            })
+            // END OF VIEW FUNCTION
 
             // EDIT FUNCTION
             $(document).on('click', '.btnEdit', function() {

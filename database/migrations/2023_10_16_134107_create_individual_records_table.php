@@ -20,13 +20,14 @@ return new class extends Migration {
             // ADDED ATTR
             $table->string('id_number');
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('gender');
             $table->date('birthdate');
             $table->float('height');
             $table->float('weight');
             $table->float('bmi');
+            $table->string('bmi_category');
             $table->string('status');
         });
     }

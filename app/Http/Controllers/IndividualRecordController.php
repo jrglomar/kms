@@ -43,13 +43,13 @@ class IndividualRecordController extends Controller
 
         $request->validate([
             'first_name' => 'required',
-            'middle_name' => 'required',
             'last_name' => 'required',
             'gender' => 'required',
             'birthdate' => 'required',
             'height' => 'required',
             'weight' => 'required',
             'bmi' => 'required',
+            'bmi_category' => 'required',
             'status' => 'required',
             'id_number' => 'required|unique:individual_records',
         ]);

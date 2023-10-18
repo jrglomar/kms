@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FeedingProgram;
 use App\Models\FeedingProgramIRLogs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFeedingProgramIRLogsRequest;
@@ -84,5 +85,15 @@ class FeedingProgramIRLogsController extends Controller
 
         $feeding_program_ir_logs->delete();
         return $feeding_program_ir_logs;
+    }
+
+    public function search($id)
+    {
+        $data = FeedingProgramIRLogs::where('feeding_program_id', 'like', '%' . $id . '%')->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

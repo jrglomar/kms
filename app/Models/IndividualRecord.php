@@ -25,6 +25,7 @@ class IndividualRecord extends Model
         'height',
         'weight',
         'bmi',
+        'bmi_category',
         'status',
         'id_number',
     ];
@@ -35,9 +36,9 @@ class IndividualRecord extends Model
     // RELATIONSHIP
     public function feeding_program_ir_logs()
     {
-        return $this->hasMany(FeedingProgramIRLogs::class, 'individual_record_id')->without('individual_records');
+        return $this->hasMany(FeedingProgramIRLogs::class, 'individual_record_id')->without('individual_records', 'feeding_programs');
     }
 
     // AUTO LOADING RELATIONSHIP
-    protected $with = ["feeding_program_ir_logs"];
+    // protected $with = ["feeding_program_ir_logs"];
 }

@@ -3,8 +3,9 @@
     <!-- Sidebar scroll-->
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-center">
-            <a href="{{ env('APP_URL') }}/admin/index.html" class="text-nowrap logo-img">
-                <img src="{{ asset('import/assets/images/logos/kms-logo.png') }}" width="200" alt="" />
+            <a href="{{ env('APP_URL') }}/admin/dashboard" class="text-nowrap logo-img">
+                <h5>Ka-IN Monitoring System</h5>
+                {{-- <img src="{{ asset('import/assets/images/logos/kms-logo.png') }}" width="200" alt="" /> --}}
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
