@@ -39,8 +39,8 @@
     <div class="row">
         <div class="col-md-12 collapse" id="create_card">
             <div class="card ">
-                <div class="card-header">
-                    <h4> <span id="create_card_title">New</span> {{ Str::singular($page_title) }}</h4>
+                <div class="card-header bg-info">
+                    <h4 class="text-light"> <span id="create_card_title">New</span> {{ Str::singular($page_title) }}</h4>
                 </div>
 
                 <form id="createForm" data-parsley-validate>
@@ -74,7 +74,7 @@
                     aria-expanded="false" aria-controls="create_card">Add
                     {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
             </div>
-            <table class="table table-hover table-sm" id="dataTable" style="width:100%">
+            <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
                 <thead>
                     <tr class="text-dark">
                         <th class="not-export-column">ID</th>

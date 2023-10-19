@@ -7,6 +7,7 @@ use App\Models\FeedingProgramIRLogs;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFeedingProgramIRLogsRequest;
 use App\Http\Requests\UpdateFeedingProgramIRLogsRequest;
+use App\Models\IndividualRecord;
 use Yajra\DataTables\Facades\DataTables;
 
 class FeedingProgramIRLogsController extends Controller
@@ -95,5 +96,31 @@ class FeedingProgramIRLogsController extends Controller
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function get_unregistered_individual($feeding_program_id)
+    {
+        $individual_per_feeding_program = IndividualRecord::select("*")
+        ->whereNotIn('individual_records.id', FeedingProgramIRLogs::select("feeding_program_i_r_logs.individual_record_id")
+        ->rightJoin('individual_records', 'individual_records.id', '=', 'feeding_program_i_r_logs.individual_record_id')
+        ->where('feeding_program_i_r_logs.feeding_program_id', $feeding_program_id))
+        ->get();
+
+        return $individual_per_feeding_program;
+    }
+
+    public function multi_insert(StoreFeedingProgramIRLogsRequest $request)
+    {
+
+        $data = $request->all();
+
+        for($i=0; $i < count($data); $i++) {
+            FeedingProgramIRLogs::create($data[$i]);
+        }
+
+        return [
+            'message' => 'Multiple Insert Success.'
+        ];
+
     }
 }

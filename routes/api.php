@@ -72,6 +72,8 @@ use App\Http\Controllers\FaqController;
     Route::put('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'update']);
     Route::delete('/feeding_program_ir_logs/destroy/{id}', [FeedingProgramIRLogsController::class, 'destroy']);
     Route::put('/feeding_program_ir_logs/restore/{id}', [FeedingProgramIRLogsController::class, 'restore']);
+    Route::post('/feeding_program_ir_logs/multi_insert', [FeedingProgramIRLogsController::class, 'multi_insert']);
+    Route::get('/feeding_program_ir_logs/get_unregistered_individual/{feeding_program_id}', [FeedingProgramIRLogsController::class, 'get_unregistered_individual']);
 
     // CONTENT_DIRECTORY
     Route::get('/content_directories', [ContentDirectoryController::class, 'index']);

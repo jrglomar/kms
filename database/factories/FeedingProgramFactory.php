@@ -17,7 +17,13 @@ class FeedingProgramFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence,
+            'location' => $this->faker->address,
+            'description' => $this->faker->paragraph,
+            'time_of_program' => $this->faker->time('H:i'),
+            'date_of_program' => $this->faker->date,
+            'date_posted' => $this->faker->dateTimeThisYear,
+            'status' => $this->faker->randomElement(['Draft', 'Published', 'Archived']),
         ];
     }
 }

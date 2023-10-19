@@ -78,8 +78,8 @@
     <div class="row">
         <div class="col-md-12 collapse" id="create_card">
             <div class="card ">
-                <div class="card-header">
-                    <h4> <span id="create_card_title">New</span> {{ Str::singular($page_title) }}</h4>
+                <div class="card-header bg-info">
+                    <h4 class="text-light"> <span id="create_card_title">New</span> {{ Str::singular($page_title) }}</h4>
                 </div>
 
                 <form id="createForm" data-parsley-validate>
@@ -151,7 +151,7 @@
                     aria-expanded="false" aria-controls="create_card">Add
                     {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
             </div>
-            <table class="table table-hover table-sm" id="dataTable" style="width:100%">
+            <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
                 <thead>
                     <tr class="text-dark">
                         <th class="not-export-column">ID</th>
@@ -208,20 +208,29 @@
             var BASE_API = API_URL + '/individual_records'
 
             function check_bmi_category(bmi) {
-                let bmi_category = ''
-                if (bmi < 18.5)
-                    bmi_category = "Underweight"
-                else if (bmi > 18.5 && bmi < 25)
-                    bmi_category = "Normal Weight"
-                else if (bmi > 25 && bmi < 30)
-                    bmi_category = "Overweight"
-                else if (bmi > 30 && bmi < 35)
-                    bmi_category = "Obese Class I"
-                else if (bmi > 35 && bmi < 40)
-                    bmi_category = "Obese Class II"
-                else if (bmi > 40)
-                    bmi_category = "Obese Class I"
-                return bmi_category
+                let bmi_category = '';
+
+                switch (true) {
+                    case (bmi < 18.5):
+                        bmi_category = "Underweight";
+                        break;
+                    case (bmi < 25):
+                        bmi_category = "Normal Weight";
+                        break;
+                    case (bmi < 30):
+                        bmi_category = "Overweight";
+                        break;
+                    case (bmi < 35):
+                        bmi_category = "Obese Class I";
+                        break;
+                    case (bmi < 40):
+                        bmi_category = "Obese Class II";
+                        break;
+                    default:
+                        bmi_category = "Obese Class III";
+                }
+
+                return bmi_category;
             }
 
             // DATATABLE FUNCTION
@@ -294,26 +303,18 @@
                         {
                             data: "bmi_category",
                             render: function(data, type, row) {
-                                let bmi_category
-                                if (data == "Underweight")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-light">${data}</span>`
-                                else if (data == "Normal Weight")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-success">${data}</span>`
-                                else if (data == "Overweight")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-warning">${data}</span>`
-                                else if (data == "Obese Class I")
-                                    bmi_category =
-                                    `<button class="btn btn-sm btn-danger">${data}</button>`
-                                else if (data == "Obese Class II")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-danger">${data}</span>`
-                                else if (data == "Obese Class III")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-danger">${data}</span>`
-                                return bmi_category
+                                const bmiCategoryClasses = {
+                                    "Underweight": "bg-success",
+                                    "Normal Weight": "bg-primary",
+                                    "Overweight": "bg-warning",
+                                    "Obese Class I": "bg-danger",
+                                    "Obese Class II": "bg-danger",
+                                    "Obese Class III": "bg-danger"
+                                };
+
+                                const bmiClass = bmiCategoryClasses[data] || "bg-success";
+
+                                return `<span class="badge rounded-1 fw-semibold ${bmiClass}">${data}</span>`;
                             }
                         },
                         {
@@ -384,15 +385,13 @@
                 })
 
                 // BMI COMPUTATION
-                let bmi = (form_data.weight / form_data.height / form_data.height) * 10000
-
+                let bmi = (form_data.weight / (form_data.height * form_data.height)) * 10000;
                 form_data.bmi = bmi;
-                form_data.bmi_category = check_bmi_category(bmi)
+                form_data.bmi_category = check_bmi_category(bmi);
 
                 form_data.status = 'Active';
 
-                let randomId = Math.floor(Date.now() * Math.random());
-                form_data.id_number = randomId.toString().slice(0, 9);
+                form_data.id_number = (Math.floor(Date.now() * Math.random())).toString().slice(0, 9);
 
                 // ajax opening tag
                 $.ajax({

@@ -44,6 +44,7 @@ class FeedingProgramController extends Controller
         $request->validate([
             'title' => 'required',
             'location' => 'required',
+            'description' => 'required',
             'time_of_program' => 'required',
             'date_of_program' => 'required',
             'date_posted' => 'required',

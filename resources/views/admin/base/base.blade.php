@@ -19,7 +19,7 @@
                 <button type="button" class="btn btn-primary">Add
                     {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
             </div>
-            <table class="table table-hover table-sm" id="dataTable" style="width:100%">
+            <table class="table table-hover table-borderless" id="dataTable" style="width:100%">
                 <thead>
                     <tr class="text-dark">
                         <th class="not-export-column">ID</th>

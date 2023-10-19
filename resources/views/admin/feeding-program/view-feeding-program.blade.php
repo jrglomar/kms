@@ -2,7 +2,7 @@
 
 {{-- SIDEBAR --}}
 @section('sidebar')
-    @include('layouts.common.admin-sidebar')
+    @include('layouts.common.admin-view-fp-sidebar')
 @endsection
 
 {{-- NAVBAR --}}
@@ -12,27 +12,25 @@
 
 {{-- CONTENT --}}
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <h5 class="card-title fw-semibold mb-4 text-center">Feeding Program Details</h5>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 id="title" class="card-title mb-4"></h5>
-                            <p>When: <span id="date_of_program" class="card-text"></span></p>
-                            <p>Where: <span id="location" class="card-text"></span></p>
-                            <p>Details: <span id="description" class="card-text"></span></p>
+    {{-- EDIT MODAL --}}
+    <div id="editModal" class="modal" tabindex="-1" feeding_program="dialog">
+        <div class="modal-dialog modal-xlg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-body" id="requiredFacultyModalBody">
+                        <div class="pb-4 col-12 d-flex justify-content-between dataTables_wrapper">
+                            <h5>Register an Individual</h5>
+                            <div>
+                                <button type="button" id="btn_select_all" class="btn btn-dark"><span
+                                        id="select_all_label">Select All Visibles</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <h5 class="card-title fw-semibold mb-4 text-center">Registered Individuals</h5>
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-hover table-sm" id="dataTable" style="width:100%">
+                        <form id="updateRegisteredIndividualForm">
+                            <table class="table table-hover table-bordered table-sm" id="registeredIndividualDatatableModal"
+                                style="width:100%">
                                 <thead>
-                                    <tr class="text-dark">
+                                    <tr>
                                         <th class="not-export-column">ID</th>
                                         <th class="not-export-column">Created at</th>
                                         <th>ID Number</th>
@@ -51,24 +49,123 @@
                                 <tbody>
 
                                 </tbody>
-                                <tfoot>
-                                    <tr class="text-dark">
-                                        <th class="not-export-column">ID</th>
-                                        <th class="not-export-column">Created at</th>
-                                        <th>ID Number</th>
-                                        <th>First Name</th>
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
-                                        <th>Birthdate</th>
-                                        <th>Gender</th>
-                                        <th>Height(cm)</th>
-                                        <th>Weight(kg)</th>
-                                        <th>BMI</th>
-                                        <th>BMI Category</th>
-                                        <th class="not-export-column">Action</th>
-                                    </tr>
-                                </tfoot>
                             </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success btnUpdate">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- END OF EDIT MODAL --}}
+
+    {{-- MAIN CONTENT --}}
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card p-8">
+                        <div class="card-body">
+                            <h1 class="mb-4 text-center fw-semibold"><span id="title"></span></h1>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <h5 class="text-center"><span id="description"></span></h5>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-2 py-4 text-center">
+                                    <span>
+                                        <h1 class="text-primary"><span>
+                                                <i class="fa-regular fa-calendar"></i>
+                                            </span></h1>
+                                    </span>
+                                    <h5 id="date_of_program"></h5>
+                                </div>
+                                <div class="col-2 py-4 text-center">
+                                    <span>
+                                        <h1 class="text-warning"><span>
+                                                <i class="fa-regular fa-clock"></i>
+                                            </span></h1>
+                                    </span>
+                                    <h5 id="time_of_program"></h5>
+                                </div>
+                                <div class="col-2 py-4 text-center">
+                                    <span>
+                                        <h1 class="text-success"><span>
+                                                <i class="fa-solid fa-location-arrow"></i>
+                                            </span></h1>
+                                    </span>
+                                    <h5 id="location"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="card p-8">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4 "><strong>Program Name: </strong><span id="title"></span></h5>
+                            <h6><strong>Date: </strong><span id="date_of_program" class="card-text"></span></h6>
+                            <h6><strong>Time: </strong><span id="time_of_program" class="card-text"></span></h6>
+                            <h6><strong>Location: </strong><span id="location" class="card-text"></span></h6>
+                            <h6><strong>Details: </strong><span id="description" class="card-text"></span></h6>
+                        </div>
+                    </div> --}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="card-title fw-semibold mb-4">List of Registered Individual/s</h5>
+                                <button type="button" class="btn btn-primary btnFetchIndividuals" data-toggle="collapse"
+                                    data-target="#create_card" aria-expanded="false" aria-controls="create_card">
+                                    Register an Individual <span><i class="ti ti-plus"></i></span>
+                                </button>
+                            </div>
+                            <div class="table-responsive"> <!-- Added a responsive container for the table -->
+                                <table class="table table-hover table-sm table-borderless" id="dataTable"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr class="text-dark">
+                                            <th class="not-export-column">ID</th>
+                                            <th class="not-export-column">Created at</th>
+                                            <th>ID Number</th>
+                                            <th>First Name</th>
+                                            <th>Middle Name</th>
+                                            <th>Last Name</th>
+                                            <th>Birthdate</th>
+                                            <th>Gender</th>
+                                            <th>Height(cm)</th>
+                                            <th>Weight(kg)</th>
+                                            <th>BMI</th>
+                                            <th>BMI Category</th>
+                                            <th class="not-export-column">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                        <tr class="text-dark">
+                                            <th class="not-export-column">ID</th>
+                                            <th class="not-export-column">Created at</th>
+                                            <th>ID Number</th>
+                                            <th>First Name</th>
+                                            <th>Middle Name</th>
+                                            <th>Last Name</th>
+                                            <th>Birthdate</th>
+                                            <th>Gender</th>
+                                            <th>Height(cm)</th>
+                                            <th>Weight(kg)</th>
+                                            <th>BMI</th>
+                                            <th>BMI Category</th>
+                                            <th class="not-export-column">Action</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -83,12 +180,14 @@
         $(document).ready(function() {
 
             // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/feeding_programs'
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/feeding_programs'
+            const INDIVIDUAL_BASE_API = API_URL + '/individual_records'
+            const FEEDING_PROGRAMS_IR_LOGS_API = API_URL + '/feeding_program_ir_logs'
 
-            const feeding_program_id = "{{ $feeding_program_id }}"
+            const FEEDING_PROGRAM_ID = "{{ $feeding_program_id }}"
 
             // DATATABLE FUNCTION
             function dataTable() {
@@ -102,7 +201,7 @@
 
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
-                        url: API_URL + '/feeding_program_ir_logs/search/' + feeding_program_id,
+                        url: API_URL + '/feeding_program_ir_logs/search/' + FEEDING_PROGRAM_ID,
                         // dataSrc: ''
                     },
                     "processing": true,
@@ -161,26 +260,18 @@
                         {
                             data: "individual_records.bmi_category",
                             render: function(data, type, row) {
-                                let bmi_category
-                                if (data == "Underweight")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-light">${data}</span>`
-                                else if (data == "Normal Weight")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-success">${data}</span>`
-                                else if (data == "Overweight")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-warning">${data}</span>`
-                                else if (data == "Obese Class I")
-                                    bmi_category =
-                                    `<button class="btn btn-sm btn-danger">${data}</button>`
-                                else if (data == "Obese Class II")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-danger">${data}</span>`
-                                else if (data == "Obese Class III")
-                                    bmi_category =
-                                    `<span class="btn btn-sm btn-danger">${data}</span>`
-                                return bmi_category
+                                const bmiCategoryClasses = {
+                                    "Underweight": "bg-success",
+                                    "Normal Weight": "bg-primary",
+                                    "Overweight": "bg-warning",
+                                    "Obese Class I": "bg-danger",
+                                    "Obese Class II": "bg-danger",
+                                    "Obese Class III": "bg-danger"
+                                };
+
+                                const bmiClass = bmiCategoryClasses[data] || "bg-success";
+
+                                return `<span class="badge rounded-1 fw-semibold ${bmiClass}">${data}</span>`;
                             }
                         },
                         {
@@ -229,6 +320,12 @@
             }
             // END OF DATATABLE FUNCTION
 
+            // REFRESH DATATABLE FUNCTION
+            function refresh() {
+                $('#dataTable').DataTable().ajax.reload()
+            }
+            // REFRESH DATATABLE FUNCTION
+
             // FETCH DETAILS FUNCTION
             function getFeedingProgramIdRecord(id) {
                 var form_url = BASE_API + '/' + id;
@@ -247,9 +344,13 @@
                         $('#title').html(data.title)
                         $('#description').html(data.description)
                         $('#location').html(data.location)
-                        let date_formatted = moment(`${data.date_of_program} ${data.time_of_program}`)
-                            .format('lll')
+                        let date_formatted = moment(`${data.date_of_program}`)
+                            .format('ll')
+                        let time_formatted = moment(`${data.date_of_program} ${data.time_of_program}`)
+                            .format('LT')
                         $('#date_of_program').html(date_formatted)
+                        $('#time_of_program').html(time_formatted)
+                        $('#status').html(data.status)
                     },
                     error: function(error) {
                         console.log(error)
@@ -267,8 +368,136 @@
             }
             // END OF EDIT FUNCTION
 
+            $('.btnFetchIndividuals').on('click', function() {
+                $('#registeredIndividualDatatableModal').DataTable().destroy()
+
+                registeredIndividualDatatableModal = $('#registeredIndividualDatatableModal').DataTable({
+                    "ajax": {
+                        url: API_URL + "/feeding_program_ir_logs/get_unregistered_individual/" +
+                            FEEDING_PROGRAM_ID,
+                        dataSrc: ''
+                    },
+                    "async": true,
+                    "columns": [{
+                            data: "id"
+                        },
+                        {
+                            data: "created_at"
+                        },
+                        {
+                            data: "id_number",
+                        },
+                        {
+                            data: "first_name",
+                        },
+                        {
+                            data: "middle_name",
+                        },
+                        {
+                            data: "last_name",
+                        },
+                        {
+                            data: "birthdate",
+                            render: function(data, type, row) {
+                                return moment(data).format('ll')
+                            }
+                        },
+                        {
+                            data: "gender",
+                        },
+                        {
+                            data: "height",
+                            render: function(data, type, row) {
+                                return data + "cm"
+                            }
+                        },
+                        {
+                            data: "weight",
+                            render: function(data, type, row) {
+                                return data + "kg"
+                            }
+                        },
+                        {
+                            data: "bmi",
+                        },
+                        {
+                            data: "bmi_category",
+                        },
+                        {
+                            data: "id",
+                            render: function(data, type, row) {
+                                return `<div class="check-box">
+                                    <input type="checkbox" name="individual_record_registered[]" class="form-check-input individual_record_status" id="${row.id}" value="${row.id}">
+                                </div>`
+                            }
+                        }
+                    ],
+                    "aoColumnDefs": [{
+                        "bVisible": false,
+                        "aTargets": [0, 1]
+                    }],
+                    "order": [
+                        [1, "desc"]
+                    ],
+                });
+
+                $('#editModal').modal("show")
+            })
+
+            $('#btn_select_all').on('click', function() {
+                let select_value = $('#select_all_label').html();
+                let status = select_value === 'Select All Visibles';
+                $('#select_all_label').html(status ? 'Unselect All Visibles' : 'Select All Visibles');
+                $("input[name='individual_record_registered[]']").prop('checked', status);
+            });
+
+            $('#updateRegisteredIndividualForm').on('submit', function(e) {
+                e.preventDefault()
+
+                let required_individual_record = $("input[name='individual_record_registered[]']:checked")
+                    .map(function() {
+                        return {
+                            "feeding_program_id": FEEDING_PROGRAM_ID,
+                            "individual_record_id": $(this).val()
+                        }
+                    }).get();
+
+                let form_url = FEEDING_PROGRAMS_IR_LOGS_API + "/multi_insert"
+
+                console.log(required_individual_record)
+
+                //  ajax opening tag
+                $.ajax({
+                    url: form_url,
+                    method: "POST",
+                    data: JSON.stringify(required_individual_record),
+                    dataType: "JSON",
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": API_TOKEN,
+                        "Content-Type": "application/json"
+                    },
+                    success: function(data) {
+                        // console.log(data)
+                        notification('success', 'Required Faculty')
+                        $('#editModal').modal('hide');
+                        refresh()
+                    },
+                    error: function(error) {
+                        $.each(error.responseJSON.errors, function(key, value) {
+                            swalAlert('warning', value)
+                        });
+                        console.log(error)
+                        console.log(`message: ${error.responseJSON.message}`)
+                        console.log(`status: ${error.status}`)
+                    }
+                    // ajax closing tag
+                })
+            })
+
+
             // FUNCTION CALLING
-            getFeedingProgramIdRecord(feeding_program_id)
+            getFeedingProgramIdRecord(FEEDING_PROGRAM_ID)
             dataTable()
 
         })
