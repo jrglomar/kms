@@ -12,7 +12,6 @@
 
 {{-- CONTENT --}}
 @section('content')
-
     {{-- EDIT MODAL --}}
     <div id="editModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -173,9 +172,42 @@
                     ],
                     "order": [
                         [1, "desc"]
-                    ],
-
-                    // EXPORTING AS PDF
+                    ], // EXPORTING AS PDF
+                    'dom': 'Blrtip',
+                    'buttons': {
+                        dom: {
+                            button: {
+                                tag: 'button',
+                                className: ''
+                            }
+                        },
+                        buttons: [{
+                            extend: 'pdfHtml5',
+                            text: 'Export as PDF',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            exportOptions: {
+                                // columns: ':visible',
+                                columns: ":not(.not-export-column)",
+                                modifier: {
+                                    order: 'current'
+                                }
+                            },
+                            className: 'btn btn-dark mb-4',
+                            titleAttr: 'PDF export.',
+                            extension: '.pdf',
+                            download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
+                            title: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            filename: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            customize: function(doc) {
+                                doc.styles.tableHeader.alignment = 'left';
+                            }
+                        }, ]
+                    },
 
                 })
 

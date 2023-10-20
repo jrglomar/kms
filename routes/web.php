@@ -14,63 +14,86 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing-page/landing-page');
 });
 
-Route::group(
-    [
-        'prefix' => '/admin',
-    ],
-    function () {
+Route::get('/logout', function () {
+    return view('auth/logout', ['page_title' => 'Logout']);
+})->name('logout');
 
-        // ------------DASHBOARD--------------- //
-        Route::get('/dashboard', function () {
-            return view('admin/dashboard/dashboard', ['page_title' => 'Dashboard']);
-        })->name('admin_dashboard');
+Route::group(['middleware' => ['web']], function () {
 
-        // ------------FEEDING PROGRAMS--------------- //
-        Route::get('/feeding_programs', function () {
-            return view('admin/feeding-program/feeding-program', ['page_title' => 'Feeding Programs']);
-        })->name('admin_feeding_program');
+    Route::get('/login', function () {
+        return view('auth/login', ['page_title' => 'Login']);
+    })->name('login');
 
-        Route::get('/feeding_programs/feeding_program/{id}', function ($id) {
-            return view('admin/feeding-program/view-feeding-program', ['page_title' => 'Feeding Programs', 'feeding_program_id' => $id]);
-        })->name('admin_feeding_program_details');
+    Route::get('/register', function () {
+        return view('auth/register', ['page_title' => 'Register']);
+    })->name('register');
+
+    Route::group(
+        [
+            'middleware' => ['auth:sanctum', 'role.admin'],
+            'prefix' => '/admin',
+        ],
+        function () {
+
+            // ------------DASHBOARD--------------- //
+            Route::get('/dashboard', function () {
+                return view('admin/dashboard/dashboard', ['page_title' => 'Dashboard']);
+            })->name('admin_dashboard');
+
+            // ------------FEEDING PROGRAMS--------------- //
+            Route::get('/feeding_programs', function () {
+                return view('admin/feeding-program/feeding-program', ['page_title' => 'Feeding Programs']);
+            })->name('admin_feeding_program');
+
+            Route::get('/feeding_programs/feeding_program/{id}', function ($id) {
+                return view('admin/feeding-program/view-feeding-program', ['page_title' => 'Feeding Programs', 'feeding_program_id' => $id]);
+            })->name('admin_feeding_program_details');
 
 
-        // ------------ANNOUNCEMENTS--------------- //
-        Route::get('/announcements', function () {
-            return view('admin/announcement/announcement', ['page_title' => 'Announcements']);
-        })->name('admin_announcement');
+            // ------------ANNOUNCEMENTS--------------- //
+            Route::get('/announcements', function () {
+                return view('admin/announcement/announcement', ['page_title' => 'Announcements']);
+            })->name('admin_announcement');
 
-        // ------------INDIVIDUAL RECORDS--------------- //
-        Route::get('/individual_records', function () {
-            return view('admin/individual-record/individual-record', ['page_title' => 'Individual Records']);
-        })->name('admin_individual-record');
+            // ------------INDIVIDUAL RECORDS--------------- //
+            Route::get('/individual_records', function () {
+                return view('admin/individual-record/individual-record', ['page_title' => 'Individual Records']);
+            })->name('admin_individual_record');
 
-        // ------------USERS--------------- //
-        Route::get('/users', function () {
-            return view('admin/user/user', ['page_title' => 'User Accounts']);
-        })->name('admin_user');
+            Route::get('/individual_records/individual_record/{id}', function ($id) {
+                return view('admin/individual-record/view-individual-record', ['page_title' => 'Individual Records', 'individual_record_id' => $id]);
+            })->name('admin_individual_record_details');
 
-        // ------------ROLES--------------- //
-        Route::get('/roles', function () {
-            return view('admin/role/role', ['page_title' => 'Roles']);
-        })->name('admin_role');
+            // ------------USERS--------------- //
+            Route::get('/users', function () {
+                return view('admin/user/user', ['page_title' => 'User Accounts']);
+            })->name('admin_user');
 
-        // ------------SLIDESHOW CONTENTS--------------- //
-        Route::get('/slideshow_contents', function () {
-            return view('admin/slideshow-content/slideshow-content', ['page_title' => 'Slideshow Contents']);
-        })->name('admin_post');
+            // ------------ROLES--------------- //
+            Route::get('/roles', function () {
+                return view('admin/role/role', ['page_title' => 'Roles']);
+            })->name('admin_role');
 
-        // ------------FAQS--------------- //
-        Route::get('/faqs', function () {
-            return view('admin/faq/faq', ['page_title' => 'FAQs']);
-        })->name('admin_faq');
+            // ------------SLIDESHOW CONTENTS--------------- //
+            Route::get('/slideshow_contents', function () {
+                return view('admin/slideshow-content/slideshow-content', ['page_title' => 'Slideshow Contents']);
+            })->name('admin_post');
 
-        // ------------GENERATE REPORTS--------------- //
-        Route::get('/generate_reports', function () {
-            return view('admin/generate-report/generate-report', ['page_title' => 'Generate Reports']);
-        })->name('admin_generate_report');
-    }
-);
+            // ------------FAQS--------------- //
+            Route::get('/faqs', function () {
+                return view('admin/faq/faq', ['page_title' => 'FAQs']);
+            })->name('admin_faq');
+
+            // ------------GENERATE REPORTS--------------- //
+            Route::get('/generate_reports', function () {
+                return view('admin/generate-report/generate-report', ['page_title' => 'Generate Reports']);
+            })->name('admin_generate_report');
+        }
+    );
+
+});
+
+

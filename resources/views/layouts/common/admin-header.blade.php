@@ -28,7 +28,7 @@
                   <p class="mb-0 fs-3">Settings</p>
                 </a>
                 </a>
-                <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                <a href="{{ env('APP_URL') . '/logout' }}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
               </div>
             </div>
           </li>

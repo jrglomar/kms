@@ -3,6 +3,7 @@
 {{-- SIDEBAR --}}
 @section('sidebar')
     @include('layouts.common.admin-sidebar')
+
 @endsection
 
 {{-- NAVBAR --}}
@@ -76,6 +77,7 @@
 
     {{-- CREATE FORM --}}
     <div class="row">
+
         <div class="col-md-12 collapse" id="create_card">
             <div class="card ">
                 <div class="card-header bg-info">
@@ -151,45 +153,48 @@
                     aria-expanded="false" aria-controls="create_card">Add
                     {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
             </div>
-            <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
-                <thead>
-                    <tr class="text-dark">
-                        <th class="not-export-column">ID</th>
-                        <th class="not-export-column">Created at</th>
-                        <th>ID Number</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Birthdate</th>
-                        <th>Gender</th>
-                        <th>Height(cm)</th>
-                        <th>Weight(kg)</th>
-                        <th>BMI</th>
-                        <th>BMI Category</th>
-                        <th class="not-export-column">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
+                    <thead>
+                        <tr class="text-dark">
+                            <th class="not-export-column">ID</th>
+                            <th class="not-export-column">Created at</th>
+                            <th>ID Number</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Birthdate</th>
+                            <th>Gender</th>
+                            <th>Height(cm)</th>
+                            <th>Weight(kg)</th>
+                            <th>BMI</th>
+                            <th>BMI Category</th>
+                            <th class="not-export-column">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                </tbody>
-                <tfoot>
-                    <tr class="text-dark">
-                        <th class="not-export-column">ID</th>
-                        <th class="not-export-column">Created at</th>
-                        <th>ID Number</th>
-                        <th>First Name</th>
-                        <th>Middle Name</th>
-                        <th>Last Name</th>
-                        <th>Birthdate</th>
-                        <th>Gender</th>
-                        <th>Height(cm)</th>
-                        <th>Weight(kg)</th>
-                        <th>BMI</th>
-                        <th>BMI Category</th>
-                        <th class="not-export-column">Action</th>
-                    </tr>
-                </tfoot>
-            </table>
+                    </tbody>
+                    <tfoot>
+                        <tr class="text-dark">
+                            <th class="not-export-column">ID</th>
+                            <th class="not-export-column">Created at</th>
+                            <th>ID Number</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Birthdate</th>
+                            <th>Gender</th>
+                            <th>Height(cm)</th>
+                            <th>Weight(kg)</th>
+                            <th>BMI</th>
+                            <th>BMI Category</th>
+                            <th class="not-export-column">Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
         </div>
     </div>
 @endsection
@@ -201,11 +206,13 @@
         // START SCRIPT TAG
         $(document).ready(function() {
 
+
             // GLOBAL VARIABLE
             var APP_URL = "{{ env('APP_URL') }}"
             var API_URL = "{{ env('API_URL') }}"
             var API_TOKEN = localStorage.getItem("API_TOKEN")
             var BASE_API = API_URL + '/individual_records'
+
 
             function check_bmi_category(bmi) {
                 let bmi_category = '';
@@ -322,7 +329,8 @@
                             render: function(data, type, row) {
                                 console.log(data)
                                 if (data == null) {
-                                    return `<div>
+                                    return `<div class="">
+                                        <button id="${row.id}" type="button" class="btn btn-sm btn-info btnView">View</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-danger btnDelete">Delete</button>
                                         </div>`;
@@ -334,7 +342,7 @@
                     ],
                     "aoColumnDefs": [{
                             "bVisible": false,
-                            "aTargets": [0, 1],
+                            "aTargets": [0, 1, 4, 8, 9],
                         },
                         {
                             "className": "dt-right",
@@ -344,9 +352,46 @@
                     "order": [
                         [1, "desc"]
                     ],
+                    // EXPORTING AS PDF
+                    'dom': 'Blrtip',
+                    'buttons': {
+                        dom: {
+                            button: {
+                                tag: 'button',
+                                className: ''
+                            }
+                        },
+                        buttons: [{
+                            extend: 'pdfHtml5',
+                            text: 'Export as PDF',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            exportOptions: {
+                                // columns: ':visible',
+                                columns: ":not(.not-export-column)",
+                                modifier: {
+                                    order: 'current'
+                                }
+                            },
+                            className: 'btn btn-dark mb-4',
+                            titleAttr: 'PDF export.',
+                            extension: '.pdf',
+                            download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
+                            title: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            filename: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            customize: function(doc) {
+                                doc.styles.tableHeader.alignment = 'left';
+                            }
+                        }, ]
+                    },
 
 
                 })
+
 
                 // FOOTER FILTER
                 $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
@@ -362,6 +407,15 @@
                 dataTable.buttons().container().appendTo('#tableActions');
             }
             // END OF DATATABLE FUNCTION
+
+            // VIEW FUNCTION
+            $(document).on('click', '.btnView', function() {
+                var id = this.id;
+                var redirect_to = APP_URL + '/admin/individual_records/individual_record/' + id;
+
+                window.location = redirect_to;
+            })
+            // END OF VIEW FUNCTION
 
             // REFRESH DATATABLE FUNCTION
             function refresh() {

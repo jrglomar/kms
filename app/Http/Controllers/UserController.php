@@ -41,7 +41,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $fields = $request->validate([
-            'email' => 'required|string|unique:users,email',
+            'username' => 'required|string|unique:users,username',
             'first_name' => 'required',
             'last_name' => 'required',
             'role_id' => 'required',
@@ -49,7 +49,7 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
-            'email' => $fields['email'],
+            'username' => $fields['username'],
             'first_name' => $fields['first_name'],
             'last_name' => $fields['last_name'],
             'role_id' => $fields['role_id'],
@@ -87,6 +87,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user, $id)
     {
+
         $user = User::find($id);
         $user->update($request->all());
 
@@ -103,4 +104,11 @@ class UserController extends Controller
         $user->delete();
         return $user;
     }
+
+    public function search($username)
+    {
+
+        return User::where('username', 'like', '%'.$username.'%')->get();
+    }
+
 }

@@ -5,7 +5,6 @@
 <script src="{{ asset('import/assets/js/app.min.js') }}"></script>
 <script src="{{ asset('import/assets/libs/simplebar/dist/simplebar.js') }}"></script>
 
-
 {{-- ADDED LIBRARIES --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('vendors/parsley/js/parsley.min.js') }}"></script>

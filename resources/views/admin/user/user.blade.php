@@ -33,9 +33,9 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="required-input">Email</label>
-                                <input type="email" class="form-control" id="email_edit" name="email_edit" tabindex="1"
-                                    required>
+                                <label class="required-input">Username</label>
+                                <input type="text" class="form-control" id="username_edit" name="username_edit"
+                                    tabindex="1" required>
                             </div>
                         </div>
                         <div class="row">
@@ -80,9 +80,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-8">
-                                <label class="required-input">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" tabindex="1"
+                            <div class="form-group col-md-6">
+                                <label class="required-input">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" tabindex="1"
                                     required>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                     <tr class="text-dark">
                         <th class="not-export-column">ID</th>
                         <th class="not-export-column">Created at</th>
-                        <th>Email</th>
+                        <th>Username</th>
                         <th>Name</th>
                         <th>Role</th>
                         <th class="not-export-column">Action</th>
@@ -184,7 +184,7 @@
                             data: "created_at"
                         },
                         {
-                            data: "email",
+                            data: "username",
                         },
                         {
                             data: "first_name",
@@ -225,6 +225,42 @@
                     "order": [
                         [1, "desc"]
                     ],
+                    // EXPORTING AS PDF
+                    'dom': 'Blrtip',
+                    'buttons': {
+                        dom: {
+                            button: {
+                                tag: 'button',
+                                className: ''
+                            }
+                        },
+                        buttons: [{
+                            extend: 'pdfHtml5',
+                            text: 'Export as PDF',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            exportOptions: {
+                                // columns: ':visible',
+                                columns: ":not(.not-export-column)",
+                                modifier: {
+                                    order: 'current'
+                                }
+                            },
+                            className: 'btn btn-dark mb-4',
+                            titleAttr: 'PDF export.',
+                            extension: '.pdf',
+                            download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
+                            title: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            filename: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            customize: function(doc) {
+                                doc.styles.tableHeader.alignment = 'left';
+                            }
+                        }, ]
+                    },
 
 
                 })
@@ -306,7 +342,7 @@
                         $('.btnUpdate').attr('id', data.id)
                         $('#first_name_edit').val(data.first_name)
                         $('#last_name_edit').val(data.last_name)
-                        $('#email_edit').val(data.email)
+                        $('#username_edit').val(data.username)
                         $('#role_id_edit').val(data.role_id)
                         $('#editModal').modal('show');
                     },
@@ -337,7 +373,7 @@
                 var form_data = {
                     "first_name": $('#first_name_edit').val(),
                     "last_name": $('#last_name_edit').val(),
-                    "email": $('#email_edit').val(),
+                    "username": $('#username_edit').val(),
                     "role_id": $('#role_id_edit').val(),
                 }
 
@@ -362,7 +398,13 @@
                     error: function(error) {
                         console.log(error)
                         if (error.responseJSON.errors == null) {
-                            swalAlert('warning', error.responseJSON.message)
+                            if (error.responseJSON.exception ==
+                                "Illuminate\\Database\\UniqueConstraintViolationException") {
+                                swalAlert('warning', 'The username has already been taken.')
+                            } else {
+                                swalAlert('warning', error.responseJSON.message)
+
+                            }
                         } else {
                             $.each(error.responseJSON.errors, function(key, value) {
                                 swalAlert('warning', value)

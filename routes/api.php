@@ -13,6 +13,7 @@ use App\Http\Controllers\IndividualRecordController;
 use App\Http\Controllers\FeedingProgramIRLogsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,12 @@ use App\Http\Controllers\FaqController;
 |
 */
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::get('/user/search/{user}', [UserController::class, 'search']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ROLE
     Route::get('/roles', [RoleController::class, 'index']);
@@ -68,7 +74,8 @@ use App\Http\Controllers\FaqController;
     Route::get('/feeding_program_ir_logs/datatable', [FeedingProgramIRLogsController::class, 'datatable']);
     Route::post('/feeding_program_ir_logs', [FeedingProgramIRLogsController::class, 'store']);
     Route::get('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'show']);
-    Route::get('/feeding_program_ir_logs/search/{id}', [FeedingProgramIRLogsController::class, 'search']);
+    Route::get('/feeding_program_ir_logs/search_feeding_programs/{id}', [FeedingProgramIRLogsController::class, 'search_feeding_programs']);
+    Route::get('/feeding_program_ir_logs/search_individual_records/{id}', [FeedingProgramIRLogsController::class, 'search_individual_records']);
     Route::put('/feeding_program_ir_logs/{id}', [FeedingProgramIRLogsController::class, 'update']);
     Route::delete('/feeding_program_ir_logs/destroy/{id}', [FeedingProgramIRLogsController::class, 'destroy']);
     Route::put('/feeding_program_ir_logs/restore/{id}', [FeedingProgramIRLogsController::class, 'restore']);
@@ -102,4 +109,4 @@ use App\Http\Controllers\FaqController;
     Route::delete('/faqs/destroy/{id}', [FaqController::class, 'destroy']);
     Route::put('/faqs/restore/{id}', [FaqController::class, 'restore']);
 
-// });
+});

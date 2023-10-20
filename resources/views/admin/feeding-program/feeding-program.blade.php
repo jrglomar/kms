@@ -138,6 +138,18 @@
                 <tbody>
 
                 </tbody>
+                <tfoot>
+                    <tr class="text-dark">
+                        <th class="not-export-column">ID</th>
+                        <th class="not-export-column">Created at</th>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th class="not-export-column">Action</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -227,9 +239,42 @@
                     ],
                     "order": [
                         [1, "desc"]
-                    ],
-
-                    // EXPORTING AS PDF
+                    ], // EXPORTING AS PDF
+                    'dom': 'Blrtip',
+                    'buttons': {
+                        dom: {
+                            button: {
+                                tag: 'button',
+                                className: ''
+                            }
+                        },
+                        buttons: [{
+                            extend: 'pdfHtml5',
+                            text: 'Export as PDF',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            exportOptions: {
+                                // columns: ':visible',
+                                columns: ":not(.not-export-column)",
+                                modifier: {
+                                    order: 'current'
+                                }
+                            },
+                            className: 'btn btn-dark mb-4',
+                            titleAttr: 'PDF export.',
+                            extension: '.pdf',
+                            download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
+                            title: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            filename: function() {
+                                return "List of {{ $page_title }}"
+                            },
+                            customize: function(doc) {
+                                doc.styles.tableHeader.alignment = 'left';
+                            }
+                        }, ]
+                    },
 
                 })
 

@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     {
         // DEFAULT ROLES
         DB::table('users')->insert([
-            'email' => 'jrglomar016@gmail.com',
-            'password' => 'User01',
+            'username' => 'jrglomar016',
+            'password' => '$2y$10$xcV2v1WYAtXsFg8/udthtuQdXyPHWn9Ys0wRFX2HIuOQcbqVnBd.S',
             'first_name' => 'John Raven',
             'last_name' => 'Glomar',
             'role_id' => 1,

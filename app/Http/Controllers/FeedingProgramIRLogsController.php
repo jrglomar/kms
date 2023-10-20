@@ -88,9 +88,19 @@ class FeedingProgramIRLogsController extends Controller
         return $feeding_program_ir_logs;
     }
 
-    public function search($id)
+    public function search_feeding_programs($id)
     {
         $data = FeedingProgramIRLogs::where('feeding_program_id', 'like', '%' . $id . '%')->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function search_individual_records($id)
+    {
+        $data = FeedingProgramIRLogs::where('individual_record_id', 'like', '%' . $id . '%')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
