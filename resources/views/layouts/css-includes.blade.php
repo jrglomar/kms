@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('import/assets/css/styles.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('import/assets/css/custom-styles.css') }}" />
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 {{-- ADDED CSS LIBRARIES --}}
 <link rel="stylesheet" href="{{ asset('vendors/toastr/css/toastr.css') }}">

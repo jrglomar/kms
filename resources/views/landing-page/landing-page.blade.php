@@ -136,8 +136,7 @@
                 <div class="col-lg-9">
                     <div class="about-title text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                         <h6 class="welcome">WELCOME</h6>
-                        <h3 class="title"><span>Our 10 years working experience to </span> take care of your business
-                            goal.</h3>
+                        <h3 class="title"><span>Discover the convenience of real-time BMI monitoring</span>, empowering you to take control of your health and fitness journey effortlessly.</h3>
                     </div>
                 </div>
             </div> <!-- row -->
@@ -173,7 +172,7 @@
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
-            <div class="contact-info pt-30">
+            {{-- <div class="contact-info pt-30">
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
                         <div class="single-contact-info contact-color-1 mt-30 d-flex  wow fadeInUp"
@@ -211,7 +210,7 @@
                         </div> <!-- single contact info -->
                     </div>
                 </div> <!-- row -->
-            </div> <!-- contact info -->
+            </div> <!-- contact info --> --}}
 
         </div> <!-- container -->
     </section>
