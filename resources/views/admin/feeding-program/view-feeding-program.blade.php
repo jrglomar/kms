@@ -201,7 +201,8 @@
 
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
-                        url: API_URL + '/feeding_program_ir_logs/search_feeding_programs/' + FEEDING_PROGRAM_ID,
+                        url: API_URL + '/feeding_program_ir_logs/search_feeding_programs/' +
+                            FEEDING_PROGRAM_ID,
                         // dataSrc: ''
                     },
                     "processing": true,
@@ -511,7 +512,8 @@
                     headers: {
                         "Accept": "application/json",
                         "Authorization": API_TOKEN,
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
                         // console.log(data)
