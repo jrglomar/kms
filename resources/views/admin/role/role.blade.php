@@ -110,6 +110,7 @@
                     "ajax": {
                         url: BASE_API + '/datatable'
                     },
+                    // "searching": false,
                     "processing": true,
                     "serverSide": true,
                     "lengthMenu": [

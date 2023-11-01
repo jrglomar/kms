@@ -89,7 +89,7 @@
 
 
                 {{-- REPORTS --}}
-                <li class="nav-small-cap">
+                {{-- <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">REPORTS</span>
                 </li>
@@ -100,7 +100,7 @@
                         </span>
                         <span class="hide-menu">Generate Report</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- EXTRAS --}}
                 <li class="nav-small-cap">

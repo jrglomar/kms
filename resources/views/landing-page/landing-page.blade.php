@@ -219,7 +219,7 @@
 
     <!--====== FOOTER PART START ======-->
 
-    <footer id="footer" class="footer-area bg_cover"
+    {{-- <footer id="footer" class="footer-area bg_cover"
         style="background-image: url(landing_page_assets/images/footer-bg.jpg)">
         <div class="container">
             <div class="footer-widget pt-30 pb-70">
@@ -281,13 +281,9 @@
                         </div> <!-- footer contact -->
                     </div>
                 </div> <!-- row -->
-            </div> <!-- footer widget -->
-            {{-- <div class="footer-copyright text-center">
-                <p class="text">© 2022 Crafted by <a href="https://uideck.com" rel="nofollow">UIdeck</a> All Rights
-                    Reserved.</p>
-            </div> --}}
-        </div> <!-- container -->
-    </footer>
+            </div>
+        </div>
+    </footer> --}}
 
     <!--====== FOOTER PART ENDS ======-->
 

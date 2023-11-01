@@ -15,10 +15,10 @@ class UserSeeder extends Seeder
     {
         // DEFAULT ROLES
         DB::table('users')->insert([
-            'username' => 'jrglomar016',
+            'username' => 'admin',
             'password' => '$2y$10$xcV2v1WYAtXsFg8/udthtuQdXyPHWn9Ys0wRFX2HIuOQcbqVnBd.S',
-            'first_name' => 'John Raven',
-            'last_name' => 'Glomar',
+            'first_name' => 'Admin',
+            'last_name' => 'Account',
             'role_id' => 1,
             'created_at' => '2023-10-14 16:33:33',
             'updated_at' => '2023-10-14 16:33:33'

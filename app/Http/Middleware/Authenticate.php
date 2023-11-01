@@ -16,8 +16,8 @@ class Authenticate extends Middleware
         if (!Auth::check()){
             // return route('login');
             abort(401);
-            dd(Auth::check());
-            dd(Auth::user());
+            // dd(Auth::check());
+            // dd(Auth::user());
         }
     }
 }
