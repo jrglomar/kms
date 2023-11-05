@@ -2,12 +2,13 @@
 
 {{-- SIDEBAR --}}
 @section('sidebar')
-    @include('layouts.common.admin-sidebar')
+    @include('layouts.common.user-sidebar')
+
 @endsection
 
 {{-- NAVBAR --}}
 @section('header')
-    @include('layouts.common.admin-header')
+    @include('layouts.common.user-header')
 @endsection
 
 {{-- CONTENT --}}
@@ -19,10 +20,49 @@
                 <div class="modal-body">
                     <h5 class="card-title fw-semibold mb-4 text-black">Edit {{ Str::singular($page_title) }}</h5>
                     <form id="editForm">
-                        <div class="mb-3">
-                            <label for="title_edit" class="form-label">Title</label>
-                            <input type="email" class="form-control" id="title_edit" name="title_edit"
-                                aria-describedby="title">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="required-input">First Name</label>
+                                <input type="text" class="form-control" id="first_name_edit" name="first_name_edit"
+                                    tabindex="1" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Middle Name</label>
+                                <input type="text" class="form-control" id="middle_name_edit" name="middle_name_edit"
+                                    tabindex="1">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Last Name</label>
+                                <input type="text" class="form-control" id="last_name_edit" name="last_name_edit"
+                                    tabindex="1" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="required-input">Birthdate</label>
+                                <input type="date" class="form-control" id="birthdate_edit" name="birthdate_edit"
+                                    tabindex="1" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Gender</label>
+                                <select class="form-control" id="gender_edit" name="gender_edit" tabindex="1">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Height(cm)</label>
+                                <input type="number" class="form-control" id="height_edit" name="height_edit"
+                                    tabindex="1" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Weight(kg)</label>
+                                <input type="number" class="form-control" id="weight_edit" name="weight_edit"
+                                    tabindex="1" required>
+                            </div>
                         </div>
                     </form>
 
@@ -37,6 +77,7 @@
 
     {{-- CREATE FORM --}}
     <div class="row">
+
         <div class="col-md-12 collapse" id="create_card">
             <div class="card ">
                 <div class="card-header bg-info">
@@ -46,12 +87,50 @@
                 <form id="createForm" data-parsley-validate>
                     <div class="card-body">
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="required-input">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" tabindex="1"
+                            <div class="form-group col-md-4">
+                                <label class="required-input">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" tabindex="1"
+                                    required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Middle Name</label>
+                                <input type="text" class="form-control" id="middle_name" name="middle_name"
+                                    tabindex="1">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" tabindex="1"
                                     required>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="required-input">Birthdate</label>
+                                <input type="date" class="form-control" id="birthdate" name="birthdate"
+                                    tabindex="1" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Gender</label>
+                                <select class="form-control" id="gender" name="gender" tabindex="1">
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Height(cm)</label>
+                                <input type="number" class="form-control" id="height" name="height" tabindex="1"
+                                    required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="required-input">Weight(kg)</label>
+                                <input type="number" class="form-control" id="weight" name="weight" tabindex="1"
+                                    required>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-light" data-toggle="collapse" data-parent="#create_card"
@@ -69,24 +148,53 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="card-title fw-semibold">List of Role/s</h5>
+                <h5 class="card-title fw-semibold">List of Individual Records/s</h5>
                 <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#create_card"
                     aria-expanded="false" aria-controls="create_card">Add
                     {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
             </div>
-            <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
-                <thead>
-                    <tr class="text-dark">
-                        <th class="not-export-column">ID</th>
-                        <th class="not-export-column">Created at</th>
-                        <th>Title</th>
-                        <th class="not-export-column">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
+                <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
+                    <thead>
+                        <tr class="text-dark">
+                            <th class="not-export-column">ID</th>
+                            <th class="not-export-column">Created at</th>
+                            <th>ID Number</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Birthdate</th>
+                            <th>Gender</th>
+                            <th>Height(cm)</th>
+                            <th>Weight(kg)</th>
+                            <th>BMI</th>
+                            <th>BMI Category</th>
+                            <th class="not-export-column">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </table>
+                    </tbody>
+                    <tfoot>
+                        <tr class="text-dark">
+                            <th class="not-export-column">ID</th>
+                            <th class="not-export-column">Created at</th>
+                            <th>ID Number</th>
+                            <th>First Name</th>
+                            <th>Middle Name</th>
+                            <th>Last Name</th>
+                            <th>Birthdate</th>
+                            <th>Gender</th>
+                            <th>Height(cm)</th>
+                            <th>Weight(kg)</th>
+                            <th>BMI</th>
+                            <th>BMI Category</th>
+                            <th class="not-export-column">Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
         </div>
     </div>
 @endsection
@@ -98,14 +206,49 @@
         // START SCRIPT TAG
         $(document).ready(function() {
 
+
             // GLOBAL VARIABLE
-            const APP_URL = "{{ env('APP_URL') }}"
-            const API_URL = "{{ env('API_URL') }}"
-            const API_TOKEN = localStorage.getItem("API_TOKEN")
-            const BASE_API = API_URL + '/roles'
+            var APP_URL = "{{ env('APP_URL') }}"
+            var API_URL = "{{ env('API_URL') }}"
+            var API_TOKEN = localStorage.getItem("API_TOKEN")
+            var BASE_API = API_URL + '/individual_records'
+
+
+            function check_bmi_category(bmi) {
+                let bmi_category = '';
+
+                switch (true) {
+                    case (bmi < 18.5):
+                        bmi_category = "Underweight";
+                        break;
+                    case (bmi < 25):
+                        bmi_category = "Normal Weight";
+                        break;
+                    case (bmi < 30):
+                        bmi_category = "Overweight";
+                        break;
+                    case (bmi < 35):
+                        bmi_category = "Obese Class I";
+                        break;
+                    case (bmi < 40):
+                        bmi_category = "Obese Class II";
+                        break;
+                    default:
+                        bmi_category = "Obese Class III";
+                }
+
+                return bmi_category;
+            }
 
             // DATATABLE FUNCTION
             function dataTable() {
+                // FOR FOOTER GENERATE OF INPUT
+                $('#dataTable tfoot th').each(function(i) {
+                    var title = $('#dataTable thead th').eq($(this).index()).text();
+                    $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
+                        '" data-index="' + i + '" />');
+                });
+
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
                         url: BASE_API + '/datatable'
@@ -129,13 +272,65 @@
                             data: "created_at"
                         },
                         {
-                            data: "title",
+                            data: "id_number",
+                        },
+                        {
+                            data: "first_name",
+                        },
+                        {
+                            data: "middle_name",
+                        },
+                        {
+                            data: "last_name",
+                        },
+                        {
+                            data: "birthdate",
+                            render: function(data, type, row) {
+                                return moment(data).format('ll')
+                            }
+                        },
+                        {
+                            data: "gender",
+                        },
+                        {
+                            data: "height",
+                            render: function(data, type, row) {
+                                return data + "cm"
+                            }
+                        },
+                        {
+                            data: "weight",
+                            render: function(data, type, row) {
+                                return data + "kg"
+                            }
+                        },
+                        {
+                            data: "bmi",
+                        },
+                        {
+                            data: "bmi_category",
+                            render: function(data, type, row) {
+                                const bmiCategoryClasses = {
+                                    "Underweight": "bg-success",
+                                    "Normal Weight": "bg-primary",
+                                    "Overweight": "bg-warning",
+                                    "Obese Class I": "bg-danger",
+                                    "Obese Class II": "bg-danger",
+                                    "Obese Class III": "bg-danger"
+                                };
+
+                                const bmiClass = bmiCategoryClasses[data] || "bg-success";
+
+                                return `<span class="badge rounded-1 fw-semibold ${bmiClass}">${data}</span>`;
+                            }
                         },
                         {
                             data: "deleted_at",
                             render: function(data, type, row) {
+                                console.log(data)
                                 if (data == null) {
-                                    return `<div>
+                                    return `<div class="">
+                                        <button id="${row.id}" type="button" class="btn btn-sm btn-info btnView">View</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-danger btnDelete">Delete</button>
                                         </div>`;
@@ -147,7 +342,7 @@
                     ],
                     "aoColumnDefs": [{
                             "bVisible": false,
-                            "aTargets": [0, 1],
+                            "aTargets": [0, 1, 4, 8, 9],
                         },
                         {
                             "className": "dt-right",
@@ -197,10 +392,30 @@
 
                 })
 
+
+                // FOOTER FILTER
+                $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
+                    console.log(this.value)
+                    console.log(dataTable)
+                    dataTable
+                        .column($(this).data('index'))
+                        .search(this.value)
+                        .draw();
+                });
+
                 // TO ADD BUTTON TO DIV TABLE ACTION
                 dataTable.buttons().container().appendTo('#tableActions');
             }
             // END OF DATATABLE FUNCTION
+
+            // VIEW FUNCTION
+            $(document).on('click', '.btnView', function() {
+                var id = this.id;
+                var redirect_to = APP_URL + '/admin/individual_records/individual_record/' + id;
+
+                window.location = redirect_to;
+            })
+            // END OF VIEW FUNCTION
 
             // REFRESH DATATABLE FUNCTION
             function refresh() {
@@ -222,7 +437,15 @@
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
-                console.log(form_data)
+
+                // BMI COMPUTATION
+                let bmi = (form_data.weight / (form_data.height * form_data.height)) * 10000;
+                form_data.bmi = bmi;
+                form_data.bmi_category = check_bmi_category(bmi);
+
+                form_data.status = 'Active';
+
+                form_data.id_number = (Math.floor(Date.now() * Math.random())).toString().slice(0, 9);
 
                 // ajax opening tag
                 $.ajax({
@@ -273,7 +496,13 @@
                     },
                     success: function(data) {
                         $('.btnUpdate').attr('id', data.id)
-                        $('#title_edit').val(data.title)
+                        $('#first_name_edit').val(data.first_name)
+                        $('#middle_name_edit').val(data.middle_name)
+                        $('#last_name_edit').val(data.last_name)
+                        $('#birthdate_edit').val(data.birthdate)
+                        $('#gender_edit').val(data.gender)
+                        $('#height_edit').val(data.height)
+                        $('#weight_edit').val(data.weight)
                         $('#editModal').modal('show');
                     },
                     error: function(error) {
@@ -305,8 +534,10 @@
                 $.each(form, function() {
                     form_data[[this.name.slice(0, -5)]] = this.value;
                 })
-                console.log("🚀 ~ file: role.blade.php:306 ~ $.each ~ form_data:", form_data)
+                let bmi = (form_data.weight / form_data.height / form_data.height) * 10000
 
+                form_data.bmi = bmi;
+                form_data.bmi_category = check_bmi_category(bmi)
 
                 // ajax opening tag
                 $.ajax({

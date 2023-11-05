@@ -94,6 +94,30 @@ Route::group(['middleware' => ['web']], function () {
         }
     );
 
+    Route::group(
+        [
+            'middleware' => ['auth:sanctum', 'role.user'],
+            'prefix' => '/user',
+        ],
+        function () {
+
+            // ------------DASHBOARD--------------- //
+            Route::get('/dashboard', function () {
+                return view('user/dashboard/dashboard', ['page_title' => 'Dashboard']);
+            })->name('user_dashboard');
+
+            // ------------INDIVIDUAL RECORDS--------------- //
+            Route::get('/individual_records', function () {
+                return view('user/individual-record/individual-record', ['page_title' => 'Individual Records']);
+            })->name('user_individual_record');
+
+            Route::get('/individual_records/individual_record/{id}', function ($id) {
+                return view('user/individual-record/view-individual-record', ['page_title' => 'Individual Records', 'individual_record_id' => $id]);
+            })->name('user_individual_record_details');
+
+        }
+    );
+
 });
 
 

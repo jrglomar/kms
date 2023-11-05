@@ -56,7 +56,6 @@
             </div>
         </div>
     </div>
-
     {{-- CREATE FORM --}}
     <div class="row">
         <div class="col-md-12 collapse" id="create_card">
@@ -89,8 +88,8 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="required-input">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" tabindex="1"
-                                    required>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    tabindex="1" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="required-input">Confirm Password</label>

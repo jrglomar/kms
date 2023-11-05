@@ -14,6 +14,7 @@ use App\Http\Controllers\FeedingProgramIRLogsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::post('/individual_records/import', [IndividualRecordController::class, 'import']);
 
     // ROLE
     Route::get('/roles', [RoleController::class, 'index']);
