@@ -2,12 +2,12 @@
 
 {{-- SIDEBAR --}}
 @section('sidebar')
-    @include('layouts.common.user-view-ir-sidebar')
+    @include('layouts.common.admin-view-ir-sidebar')
 @endsection
 
 {{-- NAVBAR --}}
 @section('header')
-    @include('layouts.common.user-header')
+    @include('layouts.common.admin-header')
 @endsection
 
 {{-- CONTENT --}}
@@ -101,7 +101,7 @@
     <script>
         $(document).ready(function() {
 
-            // GLOBAL VARIABLE
+            // GLOBAL letIABLE
             const APP_URL = "{{ env('APP_URL') }}"
             const API_URL = "{{ env('API_URL') }}"
             const API_TOKEN = localStorage.getItem("API_TOKEN")
@@ -114,7 +114,7 @@
             function dataTable() {
                 // FOR FOOTER GENERATE OF INPUT
                 $('#dataTable tfoot th').each(function(i) {
-                    var title = $('#dataTable thead th').eq($(this).index()).text();
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
                     $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
                         '" data-index="' + i + '" />');
                 });
@@ -220,7 +220,7 @@
                             download: 'open', // FOR NOT DOWNLOADING THE FILE AND OPEN IN NEW TAB
                             title: function() {
                                 return "History of Registered Feeding Programs for " + $(
-                                    '#first_name').html() + " " + $('#last_name').html()
+                                    '#full_name').html()
                             },
                             filename: function() {
                                 return "History of Registered Feeding Programs"
@@ -256,7 +256,7 @@
 
             // FETCH DETAILS FUNCTION
             function getIndividualRecordIdRecord(id) {
-                var form_url = BASE_API + '/' + id;
+                let form_url = BASE_API + '/' + id;
 
                 $.ajax({
                     url: form_url,

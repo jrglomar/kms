@@ -115,6 +115,27 @@ Route::group(['middleware' => ['web']], function () {
                 return view('user/individual-record/view-individual-record', ['page_title' => 'Individual Records', 'individual_record_id' => $id]);
             })->name('user_individual_record_details');
 
+            // ------------FEEDING PROGRAMS--------------- //
+            Route::get('/feeding_programs', function () {
+                return view('user/feeding-program/feeding-program', ['page_title' => 'Feeding Programs']);
+            })->name('user_feeding_program');
+
+            Route::get('/feeding_programs/feeding_program/{id}', function ($id) {
+                return view('user/feeding-program/view-feeding-program', ['page_title' => 'Feeding Programs', 'feeding_program_id' => $id]);
+            })->name('user_feeding_program_details');
+
+
+
+            // ------------ANNOUNCEMENTS--------------- //
+            Route::get('/announcements', function () {
+                return view('user/announcement/announcement', ['page_title' => 'Announcements']);
+            })->name('user_announcement');
+
+            // ------------FAQS--------------- //
+            Route::get('/faqs', function () {
+                return view('user/faq/faq', ['page_title' => 'FAQs']);
+            })->name('user_faq');
+
         }
     );
 

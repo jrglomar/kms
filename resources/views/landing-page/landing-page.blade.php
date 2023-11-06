@@ -136,7 +136,8 @@
                 <div class="col-lg-9">
                     <div class="about-title text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                         <h6 class="welcome">WELCOME</h6>
-                        <h3 class="title"><span>Discover the convenience of real-time BMI monitoring</span>, empowering you to take control of your health and fitness journey effortlessly.</h3>
+                        <h3 class="title"><span>Discover the convenience of real-time BMI monitoring</span>, empowering
+                            you to take control of your health and fitness journey effortlessly.</h3>
                     </div>
                 </div>
             </div> <!-- row -->
@@ -164,12 +165,62 @@
     <section id="contact" class="contact-area pt-120 pb-120">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-4">
-                    <div class="section-title text-center pb-20 wow fadeInUp" data-wow-duration="1s"
-                        data-wow-delay="0.3s">
-                        <h6 class="sub-title">Our Contact</h6>
-                        <h4 class="title">Get In <span>Touch.</span></h4>
-                    </div> <!-- section title -->
+                <div class="col-lg-12">
+                    <div class="faq-container">
+                        <h2>Frequently Asked Questions</h2>
+                        <div id="faqContainer" class="accordion">
+                            <div class="accordion-item">
+                                <button id="accordion-button-1" aria-expanded="false"><span
+                                        class="accordion-title">Why is the moon sometimes out during the
+                                        day?</span><span class="icon" aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
+                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button id="accordion-button-2" aria-expanded="false"><span
+                                        class="accordion-title">Why is the sky blue?</span><span class="icon"
+                                        aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
+                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button id="accordion-button-3" aria-expanded="false"><span
+                                        class="accordion-title">Will we ever discover aliens?</span><span
+                                        class="icon" aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
+                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button id="accordion-button-4" aria-expanded="false"><span
+                                        class="accordion-title">How much does the Earth weigh?</span><span
+                                        class="icon" aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
+                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <button id="accordion-button-5" aria-expanded="false"><span
+                                        class="accordion-title">How do airplanes stay up?</span><span class="icon"
+                                        aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
+                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- row -->
             {{-- <div class="contact-info pt-30">
@@ -338,6 +389,74 @@
 
     <!--====== Main js ======-->
     <script src="landing_page_assets/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // GLOBAL VARIABLE
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/faqs'
+
+
+
+            function fetchFaq() {
+                let form_url = BASE_API;
+
+                $.ajax({
+                    url: form_url,
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        let html_content = ``
+
+                        console.log(data)
+
+                        data.forEach((el) => {
+                            html_content += `<div class="accordion-item">
+                                <button class="btnView" id="${el.id}" aria-expanded="false"><span
+                                        class="accordion-title">Q: ${el.question}</span><span class="icon" aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>A: ${el.answer}</p>
+                                </div>
+                            </div>`
+                        })
+
+                        $('#faqContainer').html(html_content)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
+
+            fetchFaq();
+
+
+            $(document).on('click', '.btnView', function() {
+                if ($(this).attr("aria-expanded") === "true") {
+                    $(this).attr("aria-expanded", "false");
+                } else {
+                    $(this).attr("aria-expanded", "true");
+                }
+            });
+
+
+        })
+    </script>
 
 </body>
 

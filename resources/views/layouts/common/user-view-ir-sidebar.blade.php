@@ -57,7 +57,7 @@
                     <span class="hide-menu">RECORDS</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ env('APP_URL') }}/user/individual_records" aria-expanded="false">
+                    <a class="sidebar-link active" href="{{ env('APP_URL') }}/user/individual_records" aria-expanded="false">
                         <span>
                             <i class="ti ti-user-circle"></i>
                         </span>

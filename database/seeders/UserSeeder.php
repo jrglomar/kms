@@ -23,5 +23,16 @@ class UserSeeder extends Seeder
             'created_at' => '2023-10-14 16:33:33',
             'updated_at' => '2023-10-14 16:33:33'
         ]);
+
+        // DEFAULT ROLES
+        DB::table('users')->insert([
+            'username' => 'user',
+            'password' => '$2y$10$eAq6c5huYEssOnMyaKvIcuMOy.h00ZlQROgaRAG6N6b8lNqT3xUkG',
+            'first_name' => 'User',
+            'last_name' => 'Account',
+            'role_id' => 2,
+            'created_at' => '2023-10-14 16:33:33',
+            'updated_at' => '2023-10-14 16:33:33'
+        ]);
     }
 }

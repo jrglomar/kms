@@ -3,7 +3,6 @@
 {{-- SIDEBAR --}}
 @section('sidebar')
     @include('layouts.common.user-sidebar')
-
 @endsection
 
 {{-- NAVBAR --}}
@@ -75,6 +74,40 @@
         </div>
     </div>
 
+    {{-- UPLOAD FORM --}}
+
+    <div id="uploadModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="card-title fw-semibold mb-4 text-black">Upload Multiple Record</h5>
+                    <div class="row">
+                        <form id="uploadForm" action="" method="post" name="uploadForm" data-parsley-validate>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="required-input">Import File</label>
+                                        <input type="file" class="form-control" id="excelFile" name="file"
+                                            tabindex="1"
+                                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Upload</button>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    {{-- END OF UPLOAD FORM --}}
+
+
     {{-- CREATE FORM --}}
     <div class="row">
 
@@ -89,8 +122,8 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="required-input">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" tabindex="1"
-                                    required>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                    tabindex="1" required>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="required-input">Middle Name</label>
@@ -99,8 +132,8 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="required-input">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" tabindex="1"
-                                    required>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                    tabindex="1" required>
                             </div>
                         </div>
                         <div class="row">
@@ -149,9 +182,14 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="card-title fw-semibold">List of Individual Records/s</h5>
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#create_card"
-                    aria-expanded="false" aria-controls="create_card">Add
-                    {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
+                <div>
+                    <button type="button" class="btn btn-success mx-2 btnUpload" >Add Multiple Record <span><i
+                                class="ti ti-plus"></i></span></button>
+                    <button type="button" class="btn btn-primary mx-2" data-toggle="collapse"
+                        data-target="#create_card" aria-expanded="false" aria-controls="create_card">Add
+                        {{ Str::singular($page_title) }} <span><i class="ti ti-plus"></i></span></button>
+                </div>
+
             </div>
             <div class="table-responsive">
                 <table class="table table-hover table-sm table-borderless" id="dataTable" style="width:100%">
@@ -164,10 +202,10 @@
                             <th>Middle Name</th>
                             <th>Last Name</th>
                             <th>Birthdate</th>
-                            <th>Gender</th>
+                            <th width="10%">Gender</th>
                             <th>Height(cm)</th>
                             <th>Weight(kg)</th>
-                            <th>BMI</th>
+                            <th width="5%">BMI</th>
                             <th>BMI Category</th>
                             <th class="not-export-column">Action</th>
                         </tr>
@@ -184,10 +222,10 @@
                             <th>Middle Name</th>
                             <th>Last Name</th>
                             <th>Birthdate</th>
-                            <th>Gender</th>
+                            <th width="10%">Gender</th>
                             <th>Height(cm)</th>
                             <th>Weight(kg)</th>
-                            <th>BMI</th>
+                            <th width="5%">BMI</th>
                             <th>BMI Category</th>
                             <th class="not-export-column">Action</th>
                         </tr>
@@ -207,11 +245,75 @@
         $(document).ready(function() {
 
 
-            // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/individual_records'
+            // GLOBAL letIABLE
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/individual_records'
+
+            $('#uploadForm').on('submit', async function(e) {
+                e.preventDefault();
+
+                let excelFile = $('#excelFile').val()
+                let Extension = excelFile.substring(
+                    excelFile.lastIndexOf('.') + 1).toLowerCase();
+
+                if (Extension == "xlsx") {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "All record in the excel will be added to the record after this.",
+                        icon: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "blue",
+                        confirmButtonText: "Yes, upload it!",
+                    }).then((result) => {
+                        $.ajax({
+                            url: BASE_API + '/import',
+                            type: "POST",
+                            data: new FormData(this),
+                            processData: false,
+                            contentType: false,
+                            async: false,
+                            cache: false,
+                            headers: {
+                                "Authorization": API_TOKEN,
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content')
+                            },
+                            success: function(data) {
+                                toastr['success'](
+                                    `Multiple individuals added successfully.`)
+                                $('#uploadModal').modal('hide');
+                                $('#uploadForm').trigger('reset')
+                                refresh();
+                            },
+                            error: function(error) {
+                                console.log(error)
+                                if (error.responseJSON.errors == null) {
+                                    swalAlert('warning', error.responseJSON.message)
+                                } else {
+                                    $.each(error.responseJSON.errors, function(key,
+                                        value) {
+                                        swalAlert('warning', value)
+                                    });
+                                }
+                            }
+                        })
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Should be .xlsx file!',
+                        icon: 'warning',
+                        confirmButtonText: 'Ok'
+                    })
+                    $("#btnAddExcel").attr("disabled", false);
+                }
+            });
+
+            $('.btnUpload').on('click', function() {
+                $('#uploadModal').modal('show');
+            });
 
 
             function check_bmi_category(bmi) {
@@ -244,7 +346,7 @@
             function dataTable() {
                 // FOR FOOTER GENERATE OF INPUT
                 $('#dataTable tfoot th').each(function(i) {
-                    var title = $('#dataTable thead th').eq($(this).index()).text();
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
                     $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
                         '" data-index="' + i + '" />');
                 });
@@ -327,7 +429,6 @@
                         {
                             data: "deleted_at",
                             render: function(data, type, row) {
-                                console.log(data)
                                 if (data == null) {
                                     return `<div class="">
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-info btnView">View</button>
@@ -342,7 +443,7 @@
                     ],
                     "aoColumnDefs": [{
                             "bVisible": false,
-                            "aTargets": [0, 1, 4, 8, 9],
+                            "aTargets": [0, 1, 6, 4, 8, 9],
                         },
                         {
                             "className": "dt-right",
@@ -395,8 +496,6 @@
 
                 // FOOTER FILTER
                 $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
-                    console.log(this.value)
-                    console.log(dataTable)
                     dataTable
                         .column($(this).data('index'))
                         .search(this.value)
@@ -410,8 +509,8 @@
 
             // VIEW FUNCTION
             $(document).on('click', '.btnView', function() {
-                var id = this.id;
-                var redirect_to = APP_URL + '/admin/individual_records/individual_record/' + id;
+                let id = this.id;
+                let redirect_to = APP_URL + '/admin/individual_records/individual_record/' + id;
 
                 window.location = redirect_to;
             })
@@ -427,13 +526,13 @@
             $('#createForm').on('submit', function(e) {
                 e.preventDefault()
 
-                // VARIABLES
-                var form_url = BASE_API
+                // letIABLES
+                let form_url = BASE_API
 
                 // FORM DATA
-                var form = $("#createForm").serializeArray();
+                let form = $("#createForm").serializeArray();
 
-                var form_data = {}
+                let form_data = {}
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
@@ -482,8 +581,8 @@
 
             // EDIT FUNCTION
             $(document).on('click', '.btnEdit', function() {
-                var id = this.id;
-                var form_url = BASE_API + '/' + id;
+                let id = this.id;
+                let form_url = BASE_API + '/' + id;
 
                 $.ajax({
                     url: form_url,
@@ -523,12 +622,12 @@
 
             // UPDATE FUNCTION
             $(document).on('click', '.btnUpdate', function() {
-                var id = this.id;
+                let id = this.id;
                 console.log(id)
-                var form_url = BASE_API + '/' + id;
+                let form_url = BASE_API + '/' + id;
 
                 // FORM DATA
-                var form = $("#editForm").serializeArray();
+                let form = $("#editForm").serializeArray();
                 let form_data = {}
 
                 $.each(form, function() {
@@ -574,7 +673,7 @@
 
             // DEACTIVATE FUNCTION
             $(document).on("click", ".btnDelete", function() {
-                var id = this.id;
+                let id = this.id;
                 let form_url = BASE_API + '/' + id
 
                 $.ajax({
