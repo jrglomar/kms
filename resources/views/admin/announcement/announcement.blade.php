@@ -113,10 +113,10 @@
         $(document).ready(function() {
 
             // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/announcements'
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/announcements'
 
             // DATATABLE FUNCTION
             function dataTable() {
@@ -227,12 +227,12 @@
                 e.preventDefault()
 
                 // VARIABLES
-                var form_url = BASE_API
+                let form_url = BASE_API
 
                 // FORM DATA
-                var form = $("#createForm").serializeArray();
+                let form = $("#createForm").serializeArray();
 
-                var form_data = {}
+                let form_data = {}
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
@@ -273,8 +273,8 @@
 
             // EDIT FUNCTION
             $(document).on('click', '.btnEdit', function() {
-                var id = this.id;
-                var form_url = BASE_API + '/' + id;
+                let id = this.id;
+                let form_url = BASE_API + '/' + id;
 
                 $.ajax({
                     url: form_url,
@@ -309,12 +309,12 @@
 
             // UPDATE FUNCTION
             $(document).on('click', '.btnUpdate', function() {
-                var id = this.id;
+                let id = this.id;
                 console.log(id)
-                var form_url = BASE_API + '/' + id;
+                let form_url = BASE_API + '/' + id;
 
                 // FORM DATA
-                var form = $("#editForm").serializeArray();
+                let form = $("#editForm").serializeArray();
                 let form_data = {}
 
                 $.each(form, function() {
@@ -358,7 +358,7 @@
 
             // DEACTIVATE FUNCTION
             $(document).on("click", ".btnDelete", function() {
-                var id = this.id;
+                let id = this.id;
                 let form_url = BASE_API + '/' + id
 
                 $.ajax({

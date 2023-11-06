@@ -1,10 +1,10 @@
 <script>
     $(document).ready(function() {
         // GLOBAL VARIABLE
-        var APP_URL = "{{ env('APP_URL') }}"
-        var API_URL = "{{ env('API_URL') }}"
-        var API_TOKEN = localStorage.getItem("API_TOKEN")
-        var IS_LOGGED_IN = "{{ Auth::check() }}"
+        const APP_URL = "{{ env('APP_URL') }}"
+        const API_URL = "{{ env('API_URL') }}"
+        const API_TOKEN = localStorage.getItem("API_TOKEN")
+        const IS_LOGGED_IN = "{{ Auth::check() }}"
 
 
         // Login function
@@ -12,11 +12,11 @@
             e.preventDefault()
 
             // VARIABLES
-            var form_url = API_URL + '/login'
+            let form_url = API_URL + '/login'
 
             // FORM DATA
-            var form = $("#loginForm").serializeArray();
-            var form_data = {}
+            let form = $("#loginForm").serializeArray();
+            let form_data = {}
             $.each(form, function() {
                 form_data[[this.name]] = this.value;
             })

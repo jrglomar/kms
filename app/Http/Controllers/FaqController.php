@@ -6,6 +6,7 @@ use App\Models\Faq;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFaqRequest;
 use App\Http\Requests\UpdateFaqRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class FaqController extends Controller
 {
@@ -14,7 +15,16 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        return Faq::all();
+    }
+
+    public function datatable()
+    {
+        $data = Faq::all();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**
@@ -22,7 +32,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -30,15 +40,21 @@ class FaqController extends Controller
      */
     public function store(StoreFaqRequest $request)
     {
-        //
+
+        $request->validate([
+            'question' => 'required',
+            'answer' => 'required'
+        ]);
+
+        return Faq::create($request->all());
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Faq $faq)
+    public function show(Faq $faq, $id)
     {
-        //
+        return Faq::find($id);
     }
 
     /**
@@ -52,16 +68,22 @@ class FaqController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFaqRequest $request, Faq $faq)
+    public function update(UpdateFaqRequest $request, Faq $faq, $id)
     {
-        //
+        $faq = Faq::find($id);
+        $faq->update($request->all());
+
+        return $faq;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Faq $faq)
+    public function destroy(Faq $faq, $id)
     {
-        //
+        $faq = Faq::find($id);
+
+        $faq->delete();
+        return $faq;
     }
 }

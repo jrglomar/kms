@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->softDeletes();
 
             // ADDED ATTR
-            $table->string('title');
-            $table->longText('description');
+            $table->string('question');
+            $table->longText('answer');
         });
     }
 

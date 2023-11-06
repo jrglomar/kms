@@ -183,7 +183,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="card-title fw-semibold">List of Individual Records/s</h5>
                 <div>
-                    <button type="button" class="btn btn-success mx-2 btnUpload">Add Multiple Record <span><i
+                    <button type="button" class="btn btn-success mx-2 btnUpload" >Add Multiple Record <span><i
                                 class="ti ti-plus"></i></span></button>
                     <button type="button" class="btn btn-primary mx-2" data-toggle="collapse"
                         data-target="#create_card" aria-expanded="false" aria-controls="create_card">Add
@@ -245,17 +245,17 @@
         $(document).ready(function() {
 
 
-            // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/individual_records'
+            // GLOBAL letIABLE
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/individual_records'
 
             $('#uploadForm').on('submit', async function(e) {
                 e.preventDefault();
 
-                var excelFile = $('#excelFile').val()
-                var Extension = excelFile.substring(
+                let excelFile = $('#excelFile').val()
+                let Extension = excelFile.substring(
                     excelFile.lastIndexOf('.') + 1).toLowerCase();
 
                 if (Extension == "xlsx") {
@@ -346,7 +346,7 @@
             function dataTable() {
                 // FOR FOOTER GENERATE OF INPUT
                 $('#dataTable tfoot th').each(function(i) {
-                    var title = $('#dataTable thead th').eq($(this).index()).text();
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
                     $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
                         '" data-index="' + i + '" />');
                 });
@@ -509,8 +509,8 @@
 
             // VIEW FUNCTION
             $(document).on('click', '.btnView', function() {
-                var id = this.id;
-                var redirect_to = APP_URL + '/admin/individual_records/individual_record/' + id;
+                let id = this.id;
+                let redirect_to = APP_URL + '/admin/individual_records/individual_record/' + id;
 
                 window.location = redirect_to;
             })
@@ -526,13 +526,13 @@
             $('#createForm').on('submit', function(e) {
                 e.preventDefault()
 
-                // VARIABLES
-                var form_url = BASE_API
+                // letIABLES
+                let form_url = BASE_API
 
                 // FORM DATA
-                var form = $("#createForm").serializeArray();
+                let form = $("#createForm").serializeArray();
 
-                var form_data = {}
+                let form_data = {}
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
@@ -581,8 +581,8 @@
 
             // EDIT FUNCTION
             $(document).on('click', '.btnEdit', function() {
-                var id = this.id;
-                var form_url = BASE_API + '/' + id;
+                let id = this.id;
+                let form_url = BASE_API + '/' + id;
 
                 $.ajax({
                     url: form_url,
@@ -622,12 +622,12 @@
 
             // UPDATE FUNCTION
             $(document).on('click', '.btnUpdate', function() {
-                var id = this.id;
+                let id = this.id;
                 console.log(id)
-                var form_url = BASE_API + '/' + id;
+                let form_url = BASE_API + '/' + id;
 
                 // FORM DATA
-                var form = $("#editForm").serializeArray();
+                let form = $("#editForm").serializeArray();
                 let form_data = {}
 
                 $.each(form, function() {
@@ -673,7 +673,7 @@
 
             // DEACTIVATE FUNCTION
             $(document).on("click", ".btnDelete", function() {
-                var id = this.id;
+                let id = this.id;
                 let form_url = BASE_API + '/' + id
 
                 $.ajax({

@@ -154,10 +154,10 @@
         $(document).ready(function() {
 
             // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/users'
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/users'
 
             // DATATABLE FUNCTION
             function dataTable() {
@@ -280,12 +280,12 @@
                 e.preventDefault()
 
                 // VARIABLES
-                var form_url = BASE_API
+                let form_url = BASE_API
 
                 // FORM DATA
-                var form = $("#createForm").serializeArray();
+                let form = $("#createForm").serializeArray();
 
-                var form_data = {}
+                let form_data = {}
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
@@ -325,8 +325,8 @@
 
             // EDIT FUNCTION
             $(document).on('click', '.btnEdit', function() {
-                var id = this.id;
-                var form_url = BASE_API + '/' + id;
+                let id = this.id;
+                let form_url = BASE_API + '/' + id;
 
                 $.ajax({
                     url: form_url,
@@ -363,13 +363,13 @@
 
             // UPDATE FUNCTION
             $(document).on('click', '.btnUpdate', function() {
-                var id = this.id;
+                let id = this.id;
                 console.log(id)
-                var form_url = BASE_API + '/' + id;
+                let form_url = BASE_API + '/' + id;
 
                 // FORM DATA
-                var form = $("#editForm").serializeArray();
-                var form_data = {
+                let form = $("#editForm").serializeArray();
+                let form_data = {
                     "first_name": $('#first_name_edit').val(),
                     "last_name": $('#last_name_edit').val(),
                     "username": $('#username_edit').val(),
@@ -417,7 +417,7 @@
 
             // DEACTIVATE FUNCTION
             $(document).on("click", ".btnDelete", function() {
-                var id = this.id;
+                let id = this.id;
                 let form_url = BASE_API + '/' + id
 
                 $.ajax({

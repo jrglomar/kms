@@ -1,10 +1,10 @@
 <script>
     // GLOBAL VARIABLE
-    var APP_URL = "{{ env('APP_URL') }}"
-    var API_URL = "{{ env('API_URL') }}"
-    var API_TOKEN = localStorage.getItem("API_TOKEN")
-    var USER_DATA = JSON.parse(localStorage.getItem("USER_DATA"))
-    var BASE_API = API_URL + '/inquiry'
+    const APP_URL = "{{ env('APP_URL') }}"
+    const API_URL = "{{ env('API_URL') }}"
+    const API_TOKEN = localStorage.getItem("API_TOKEN")
+    const USER_DATA = JSON.parse(localStorage.getItem("USER_DATA"))
+    const BASE_API = API_URL + '/inquiry'
 
     $('#sidebarUserName').html(`${USER_DATA.first_name} ${USER_DATA.last_name}`)
 

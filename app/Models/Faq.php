@@ -14,8 +14,8 @@ class Faq extends Model
 
     // FILLABLES
     protected $fillable = [
-        'title',
-        'description',
+        'question',
+        'answer',
     ];
 
     // DATES

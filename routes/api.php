@@ -14,7 +14,6 @@ use App\Http\Controllers\FeedingProgramIRLogsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ExcelController;
 
 /*
 |--------------------------------------------------------------------------
