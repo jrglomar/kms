@@ -14,6 +14,7 @@ use App\Http\Controllers\FeedingProgramIRLogsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,17 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    // DASHBOARD
+    Route::get('/dashboard/getCounts', [DashboardController::class, 'getCounts']);
+
+    Route::get('/roles/datatable', [RoleController::class, 'datatable']);
+    Route::post('/roles', [RoleController::class, 'store']);
+    Route::get('/roles/{id}', [RoleController::class, 'show']);
+    Route::put('/roles/{id}', [RoleController::class, 'update']);
+    Route::delete('/roles/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::put('/roles/restore/{id}', [RoleController::class, 'restore']);
+
 
     // ROLE
     Route::get('/roles', [RoleController::class, 'index']);
@@ -108,5 +120,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/faqs/{id}', [FaqController::class, 'update']);
     Route::delete('/faqs/destroy/{id}', [FaqController::class, 'destroy']);
     Route::put('/faqs/restore/{id}', [FaqController::class, 'restore']);
-
 });
