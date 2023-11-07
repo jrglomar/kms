@@ -1,58 +1,68 @@
+# KMS (KA-In Management System) Installation Guide
 
-## Installation
-Clone the repository
-<pre class="notranslate"><code>git clone https://github.com/jrglomar/kms
-</code></pre>
+## Prerequisites
+Before you can run the KMS application locally, you need to have the following software installed on your system:
 
-Switch to the repo folder
-<pre class="notranslate"><code>cd kms
-</code></pre>
+- XAMPP 8.2.4
+- Composer
+- Git (optional)
 
-Install all the dependencies using composer 
-<pre class="notranslate"><code>composer install
-</code></pre>
+## Downloading the Source Code
 
-Copy the .env.example content and rename it to .env file
-<pre class="notranslate"><code>cp .env.example .env
-</code></pre>
+### Option 1 (via Git):
+1. Open your terminal.
+2. Change your working directory to the XAMPP htdocs folder:
+    ```
+    cd C:/xampp/htdocs
+    ```
+3. Clone the KMS repository using Git:
+    ```
+    git clone https://github.com/jrglomar/kms
+    ```
 
-Generate a new application key
-<pre class="notranslate"><code>php artisan key:generate
-</code></pre>
+### Option 2 (via Manual Download):
+1. Visit the KMS repository on GitHub: [https://github.com/jrglomar/kms](https://github.com/jrglomar/kms).
+2. Click the green "Code" button and select "Download ZIP."
+3. Extract the downloaded ZIP file to your C:/xampp/htdocs directory.
 
-<!-- 
-Generate a new JWT authentication secret key
-<pre class="notranslate"><code>php artisan jwt:generate
-</code></pre>
-Copy the example env file and make the required configuration changes in the .env file
-<pre class="notranslate"><code>cp .env.example .env
-</code></pre> -->
+## Installing and Setting Up the App
+1. Open your terminal or command line interface.
+2. Change your working directory to the KMS app directory:
+    ```
+    cd C:/xampp/htdocs/kms
+    ```
+3. Install the application's dependencies using Composer:
+    ```
+    composer install
+    ```
+4. Copy the .env.example file and create a new .env file:
+    ```
+    copy .env.example .env
+    ```
+5. Generate an application key:
+    ```
+    php artisan key:generate
+    ```
+6. Open XAMPP and start both Apache and MySQL.
+7. Access phpMyAdmin in your web browser at [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
+8. Create a new database named "kms" by clicking "New" on the left sidebar.
+9. In your terminal, run the following command to migrate the database and seed it with initial data:
+    ```
+    php artisan migrate:fresh --seed
+    ```
 
-Before runnning the migration script, make sure you have a database (kms) or database same with the value on .env
-Run the database migrations
-<pre class="notranslate"><code>php artisan migrate:fresh --seed
-</code></pre>
+## Starting the App Locally
+If you have already installed and set up the app, you can start it locally with the following steps:
 
-Start the local development server
-<pre class="notranslate"><code>php artisan serve
-</code></pre>
+1. Open the xampp and make sure the Apache and MySQL is started
+2. Open your terminal or command line interface. Change your working directory to the KMS app directory:
+    ```
+    cd C:/xampp/htdocs/kms
+    ```
+3. Start the application:
+    ```
+    php artisan serve
+    ```
+4. Open your web browser and navigate to the server address (by default, it's [http://127.0.0.1:8000](http://127.0.0.1:8000)) to access the KMS application.
 
-## Login at APP_URL/login to setup system
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th><strong>Email</strong></th>
-                <th><strong>Password</strong></th>
-                <th><strong>Role</strong></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>admin</td>
-                <td>User01</td>
-                <td>Admin</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+You have successfully installed, set up, and started the KMS (KA-In Monitoring System) application locally. Enjoy using it!
