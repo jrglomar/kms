@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('history_of_individual_records', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
@@ -19,9 +19,15 @@ return new class extends Migration {
             // FOR SOFT DELETES
             $table->softDeletes();
 
+            // RELATIONSHIP ATTR
+            $table->foreignId('individual_record_id')->nullable()->constrained('individual_records')->onDelete('cascade')->onUpdate('cascade');
+
             // ADDED ATTR
-            $table->string('title');
-            $table->longText('description');
+            $table->float('height');
+            $table->float('weight');
+            $table->float('bmi');
+            $table->string('bmi_category');
+            $table->string('date_recorded')->nullable();
         });
     }
 
@@ -30,6 +36,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('history_of_individual_records');
     }
 };

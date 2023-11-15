@@ -134,13 +134,14 @@
                         {
                             data: "deleted_at",
                             render: function(data, type, row) {
-                                if (data == null) {
+                                console.log(row.title)
+                                if (row.title == 'Admin' || row.title == 'User') {
+                                    return ``;
+                                } else {
                                     return `<div>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-danger btnDelete">Delete</button>
                                         </div>`;
-                                } else {
-                                    return '<button class="btn btn-danger btn-sm">Activate</button>';
                                 }
                             }
                         }

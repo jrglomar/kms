@@ -79,8 +79,12 @@
     <div id="uploadModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
+
                 <div class="modal-body">
-                    <h5 class="card-title fw-semibold mb-4 text-black">Upload Multiple Record</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title fw-semibold mb-4 text-black">Upload Multiple Record</h5>
+                        <a href="{{ asset('download/MultiIndividualFormat.xlsx') }}"><button class="btn btn-sm btn-dark float-end">Download Excel Format</button></a>
+                    </div>
                     <div class="row">
                         <form id="uploadForm" action="" method="post" name="uploadForm" data-parsley-validate>
                             <div class="card-body">

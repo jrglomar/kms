@@ -58,93 +58,73 @@
 
     {{-- ROW 2 --}}
     <div class="row">
-        <div class="col-lg-8 d-flex align-items-strech">
+
+        <div class="col-lg-8 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
-                    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                        <div class="mb-3 mb-sm-0">
-                            <h5 class="card-title fw-semibold">Records Overview</h5>
-                        </div>
-                        <div>
-                            <select class="form-select">
-                                <option value="1">March 2023</option>
-                                <option value="2">April 2023</option>
-                                <option value="3">May 2023</option>
-                                <option value="4">June 2023</option>
-                            </select>
-                        </div>
+                    <h5 class="card-title fw-semibold">Recent Individual Records Record</h5>
+                    <div class="table-responsive">
+                        <table id="dataTable" class="table text-nowrap mb-0 align-middle">
+                            <thead class="text-dark fs-4">
+                                <tr>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Created At</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Created By</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Name</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">BMI</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">BMI Category</h6>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                     </div>
-                    <div id="chart"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card overflow-hidden">
-                        <div class="card-body p-4">
-                            <h5 class="card-title mb-9 fw-semibold">Current BMI Categories</h5>
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <h4 class="fw-semibold mb-3"></h4>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <span class="round-8 bg-success rounded-circle me-2 d-inline-block"></span>
-                                        <p id="underWeightPie" class="text-dark me-1 fs-3 mb-0"></p>
-                                        <p class="fs-3 mb-0">Underweight</p>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
-                                        <p id="normalWeightPie" class="text-dark me-1 fs-3 mb-0"></p>
-                                        <p class="fs-3 mb-0">Normal Weight</p>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <span class="round-8 bg-warning rounded-circle me-2 d-inline-block"></span>
-                                        <p id="overWeightPie" class="text-dark me-1 fs-3 mb-0"></p>
-                                        <p class="fs-3 mb-0">Overweight</p>
-                                    </div>
-                                    <div class="d-flex align-items-center mb-3">
-                                        <span class="round-8 bg-danger rounded-circle me-2 d-inline-block"></span>
-                                        <p id="obesePie" class="text-dark me-1 fs-3 mb-0"></p>
-                                        <p class="fs-3 mb-0">Obese</p>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="d-flex justify-content-center">
-                                        <div id="breakup"></div>
-                                    </div>
-                                </div>
+            <div class="card w-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-9 fw-semibold">Current BMI Categories</h5>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <h4 class="fw-semibold mb-3"></h4>
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="round-8 bg-success rounded-circle me-2 d-inline-block"></span>
+                                <p id="underWeightPie" class="text-dark me-1 fs-3 mb-0"></p>
+                                <p class="fs-3 mb-0">Underweight</p>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                                <p id="normalWeightPie" class="text-dark me-1 fs-3 mb-0"></p>
+                                <p class="fs-3 mb-0">Normal Weight</p>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="round-8 bg-warning rounded-circle me-2 d-inline-block"></span>
+                                <p id="overWeightPie" class="text-dark me-1 fs-3 mb-0"></p>
+                                <p class="fs-3 mb-0">Overweight</p>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="round-8 bg-danger rounded-circle me-2 d-inline-block"></span>
+                                <p id="obesePie" class="text-dark me-1 fs-3 mb-0"></p>
+                                <p class="fs-3 mb-0">Obese</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <!-- Monthly Earnings -->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row alig n-items-start">
-                                <div class="col-8">
-                                    <h5 class="card-title mb-9 fw-semibold"> Monthly Earnings </h5>
-                                    <h4 class="fw-semibold mb-3">$6,820</h4>
-                                    <div class="d-flex align-items-center pb-1">
-                                        <span
-                                            class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
-                                            <i class="ti ti-arrow-down-right text-danger"></i>
-                                        </span>
-                                        <p class="text-dark me-1 fs-3 mb-0">+9%</p>
-                                        <p class="fs-3 mb-0">last year</p>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="d-flex justify-content-end">
-                                        <div
-                                            class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
-                                            <i class="ti ti-currency-dollar fs-6"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-6">
+                            <div class="d-flex justify-content-center">
+                                <div id="breakup"></div>
                             </div>
                         </div>
-                        <div id="earning"></div>
                     </div>
                 </div>
             </div>
@@ -167,6 +147,81 @@
 
             let categoryCounts;
             let seriesCount;
+
+            // DATATABLE FUNCTION
+            function dataTable() {
+
+                dataTable = $('#dataTable').DataTable({
+                    "ajax": {
+                        url: BASE_API + '/datatable'
+                    },
+                    // "searching": false,
+                    "processing": true,
+                    "serverSide": true,
+                    scrollY: false,
+                    scrollX: false,
+                    "lengthMenu": [
+                        [5, 10, 25, 50, -1],
+                        [5, 10, 25, 50, "All"]
+                    ],
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    "columns": [{
+                            data: "created_at"
+                        },
+                        {
+                            data: "created_by_user",
+                            render: function(data, type, row) {
+                                let result = data?.username ?? '';
+                                return result;
+                            }
+                        },
+                        {
+                            data: "first_name",
+                            render: function(data, type, row) {
+                                return `${row.first_name} ${row.middle_name} ${row.last_name}`
+                            }
+                        },
+                        {
+                            data: "bmi",
+                        },
+                        {
+                            data: "bmi_category",
+                            render: function(data, type, row) {
+                                const bmiCategoryClasses = {
+                                    "Underweight": "bg-success",
+                                    "Normal Weight": "bg-primary",
+                                    "Overweight": "bg-warning",
+                                    "Obese Class I": "bg-danger",
+                                    "Obese Class II": "bg-danger",
+                                    "Obese Class III": "bg-danger"
+                                };
+
+                                const bmiClass = bmiCategoryClasses[data] || "bg-success";
+
+                                return `<span class="badge rounded-1 fw-semibold ${bmiClass}">${data}</span>`;
+                            }
+                        },
+                    ],
+                    "aoColumnDefs": [{
+                            "bVisible": false,
+                            "aTargets": [0],
+                        },
+                        {
+                            "className": "dt-right"
+                        }
+                    ],
+                    "order": [
+                        [0, "desc"]
+                    ],
+                })
+            }
+            // END OF DATATABLE FUNCTION
+
+            dataTable();
 
             function renderThePieChart(seriesCount) {
                 console.log(seriesCount)

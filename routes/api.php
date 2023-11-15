@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryOfIndividualRecordController;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/individual_records/{id}', [IndividualRecordController::class, 'update']);
     Route::delete('/individual_records/destroy/{id}', [IndividualRecordController::class, 'destroy']);
     Route::put('/individual_records/restore/{id}', [IndividualRecordController::class, 'restore']);
+
+    // HISTORY OF INDIVIDUAL RECORD
+    Route::get('/history_of_individual_records', [HistoryOfIndividualRecordController::class, 'index']);
+    Route::get('/history_of_individual_records/datatable', [HistoryOfIndividualRecordController::class, 'datatable']);
+    Route::post('/history_of_individual_records', [HistoryOfIndividualRecordController::class, 'store']);
+    Route::get('/history_of_individual_records/{id}', [HistoryOfIndividualRecordController::class, 'show']);
+    Route::put('/history_of_individual_records/{id}', [HistoryOfIndividualRecordController::class, 'update']);
+    Route::delete('/history_of_individual_records/destroy/{id}', [HistoryOfIndividualRecordController::class, 'destroy']);
+    Route::put('/history_of_individual_records/restore/{id}', [HistoryOfIndividualRecordController::class, 'restore']);
+    Route::get('/history_of_individual_records/search_individual_records/{id}', [HistoryOfIndividualRecordController::class, 'search_individual_records']);
 
     // FEEDING PROGRAM
     Route::get('/feeding_programs', [FeedingProgramController::class, 'index']);

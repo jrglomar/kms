@@ -80,7 +80,11 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h5 class="card-title fw-semibold mb-4 text-black">Upload Multiple Record</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title fw-semibold mb-4 text-black">Upload Multiple Record</h5>
+                        <a href="{{ asset('download/MultiIndividualFormat.xlsx') }}"><button
+                                class="btn btn-sm btn-dark float-end">Download Excel Format</button></a>
+                    </div>
                     <div class="row">
                         <form id="uploadForm" action="" method="post" name="uploadForm" data-parsley-validate>
                             <div class="card-body">
@@ -183,7 +187,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="card-title fw-semibold">List of Individual Records/s</h5>
                 <div>
-                    <button type="button" class="btn btn-success mx-2 btnUpload" >Add Multiple Record <span><i
+                    <button type="button" class="btn btn-success mx-2 btnUpload">Add Multiple Record <span><i
                                 class="ti ti-plus"></i></span></button>
                     <button type="button" class="btn btn-primary mx-2" data-toggle="collapse"
                         data-target="#create_card" aria-expanded="false" aria-controls="create_card">Add
@@ -250,6 +254,56 @@
             const API_URL = "{{ env('API_URL') }}"
             const API_TOKEN = localStorage.getItem("API_TOKEN")
             const BASE_API = API_URL + '/individual_records'
+
+            let tempIndividualId;
+            let tempWeight;
+            let tempHeight;
+            let tempBmi;
+            let tempBmiCategory;
+            let tempDateRecorded;
+
+            function storeHistoryOfIndividualRecord() {
+
+                let form_url = API_URL + '/history_of_individual_records'
+                let form_data = {
+                    'individual_record_id': tempIndividualId,
+                    'height': tempHeight,
+                    'weight': tempWeight,
+                    'bmi': tempBmi,
+                    'bmi_category': tempBmiCategory,
+                    'date_recorded': tempDateRecorded
+                }
+                console.log(form_data)
+
+                // ajax opening tag
+                $.ajax({
+                    url: form_url,
+                    method: "POST",
+                    data: JSON.stringify(form_data),
+                    dataType: "JSON",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        notification('success', "Added update logs for individual record")
+                        console.log(data)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
 
             $('#uploadForm').on('submit', async function(e) {
                 e.preventDefault();
@@ -602,6 +656,13 @@
                         $('#gender_edit').val(data.gender)
                         $('#height_edit').val(data.height)
                         $('#weight_edit').val(data.weight)
+
+                        tempWeight = data.weight;
+                        tempHeight = data.height;
+                        tempBmi = data.bmi;
+                        tempBmiCategory = data.bmi_category;
+                        tempIndividualId = data.id;
+                        tempDateRecorded = data?.updated_at ?? data.created_at;
                         $('#editModal').modal('show');
                     },
                     error: function(error) {
@@ -651,6 +712,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
+                        storeHistoryOfIndividualRecord();
                         notification('info', "{{ Str::singular($page_title) }}")
                         refresh();
                         $('#editModal').modal('hide');
@@ -745,6 +807,8 @@
                 })
             });
             // END OF DEACTIVATE FUNCTION
+
+
 
             // FUNCTION CALLING
             dataTable();

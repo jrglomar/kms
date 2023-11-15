@@ -7,31 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\IndividualRecord;
 
-use App\Models\FeedingProgramIRLogs;
 
-class FeedingProgram extends Model
+class HistoryOfIndividualRecord extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // FILLABLES
     protected $fillable = [
-        'title',
-        'location',
-        'description',
-        'time_of_program',
-        'date_of_program',
-        'date_posted',
-        'status',
+        'individual_record_id',
+        'height',
+        'weight',
+        'bmi',
+        'bmi_category',
+        'date_recorded',
     ];
 
-    // DATES
-    protected $dates = ['deleted_at'];
-
-    // RELATIONSHIP
-    public function feeding_feeding_program_ir_logs()
+    public function individual_records()
     {
-        return $this->hasMany(FeedingProgramIRLogs::class, 'feeding_program_id')->without('feeding_programs');
+        return $this->belongsTo(IndividualRecord::class, 'individual_record_id');
     }
 
     public function createdByUser()
@@ -58,6 +52,5 @@ class FeedingProgram extends Model
     }
 
     // AUTO LOADING RELATIONSHIP
-    protected $with = ["createdByUser", "updatedByUser"];
-
+    protected $with = ["individual_records", "createdByUser"];
 }
