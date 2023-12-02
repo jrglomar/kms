@@ -160,6 +160,41 @@
 
     <!--====== ABOUT PART ENDS ======-->
 
+    {{-- ANNOUNCEMENTS --}}
+    <section id="contact" class="contact-area pt-120 pb-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="announcement-container">
+                        <h2 class="text-center">Announcements</h2>
+                        <div id="announcementContainer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+
+    {{-- ANNOUNCEMENTS --}}
+    <section id="contact" class="contact-area pt-120 pb-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="feeding-program-container justify-content-center">
+                        <h2 class="text-center">Feeding Programs</h2>
+                        <div id="feedingProgramContainer" class="d-flex justify-content-between" >
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
     <!--====== CONTACT PART START ======-->
 
     <section id="contact" class="contact-area pt-120 pb-120">
@@ -167,58 +202,9 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="faq-container">
-                        <h2>Frequently Asked Questions</h2>
+                        <h2 class="text-center">Frequently Asked Questions</h2>
                         <div id="faqContainer" class="accordion">
-                            <div class="accordion-item">
-                                <button id="accordion-button-1" aria-expanded="false"><span
-                                        class="accordion-title">Why is the moon sometimes out during the
-                                        day?</span><span class="icon" aria-hidden="true"></span></button>
-                                <div class="accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
-                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <button id="accordion-button-2" aria-expanded="false"><span
-                                        class="accordion-title">Why is the sky blue?</span><span class="icon"
-                                        aria-hidden="true"></span></button>
-                                <div class="accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
-                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <button id="accordion-button-3" aria-expanded="false"><span
-                                        class="accordion-title">Will we ever discover aliens?</span><span
-                                        class="icon" aria-hidden="true"></span></button>
-                                <div class="accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
-                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <button id="accordion-button-4" aria-expanded="false"><span
-                                        class="accordion-title">How much does the Earth weigh?</span><span
-                                        class="icon" aria-hidden="true"></span></button>
-                                <div class="accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
-                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <button id="accordion-button-5" aria-expanded="false"><span
-                                        class="accordion-title">How do airplanes stay up?</span><span class="icon"
-                                        aria-hidden="true"></span></button>
-                                <div class="accordion-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Elementum sagittis vitae et leo
-                                        duis ut. Ut tortor pretium viverra suspendisse potenti.</p>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -280,7 +266,9 @@
                             <div class="footer-title">
                                 <h5 class="title">KA-In Monitoring System</h5>
                             </div>
-                            <p class="text">A system that employs a monitoring system to store all data in a database for the purpose of overseeing individuals' information, monitoring their records, and evaluating their health.</p>
+                            <p class="text">A system that employs a monitoring system to store all data in a database
+                                for the purpose of overseeing individuals' information, monitoring their records, and
+                                evaluating their health.</p>
                         </div> <!-- footer about -->
                     </div>
                     <div class="col-lg-4 col-sm-6 order-sm-3 order-lg-2">
@@ -321,8 +309,6 @@
     <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
 
     <!--====== BACK TOP TOP PART ENDS ======-->
-
-
 
 
     <!--====== Jquery js ======-->
@@ -422,6 +408,54 @@
             }
 
             fetchFaq();
+
+            function fetchAnnouncement() {
+                let form_url = API_URL + "/announcements/posted";
+
+                $.ajax({
+                    url: form_url,
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        let html_content = ``
+
+                        console.log(data)
+
+                        data.forEach((el) => {
+                            html_content += `<div class="card-category-1">
+                                                <div class="basic-card basic-card-aqua">
+                                                    <div class="card-content">
+                                                        <span class="card-title">${el.title}</span>
+                                                        <p class="card-text">
+                                                            ${el.description}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                        })
+
+                        $('#announcementContainer').html(html_content)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
+
+            fetchAnnouncement();
 
 
             $(document).on('click', '.btnView', function() {

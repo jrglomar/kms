@@ -90,7 +90,11 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label class="required-input">Import File</label>
+                                        <div class="d-flex justify-content-between">
+                                            <label class="required-input">Import File</label>
+                                            <span class="text-danger"> Note: Minimum
+                                                of 3 individuals on multiple upload</span>
+                                        </div>
                                         <input type="file" class="form-control" id="excelFile" name="file"
                                             tabindex="1"
                                             accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
@@ -231,7 +235,6 @@
                             <th>Weight(kg)</th>
                             <th width="5%">BMI</th>
                             <th>BMI Category</th>
-                            <th class="not-export-column">Action</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -343,7 +346,12 @@
                             },
                             error: function(error) {
                                 console.log(error)
-                                if (error.responseJSON.errors == null) {
+                                if (error.responseJSON.message ==
+                                    "Division by zero") {
+                                    swalAlert('warning',
+                                        "There is something wrong with the record, ensure file has atleast 3 individuals for and filled with correct formats and required inputs to use this multiple upload."
+                                    )
+                                } else if (error.responseJSON.errors == null) {
                                     swalAlert('warning', error.responseJSON.message)
                                 } else {
                                     $.each(error.responseJSON.errors, function(key,

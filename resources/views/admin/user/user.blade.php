@@ -88,8 +88,8 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="required-input">Password</label>
-                                <input type="password" class="form-control" id="password" name="password"
-                                    tabindex="1" required>
+                                <input type="password" class="form-control" id="password" name="password" tabindex="1"
+                                    required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="required-input">Confirm Password</label>
@@ -141,6 +141,15 @@
                 <tbody>
 
                 </tbody>
+                <tfoot>
+                    <tr class="text-dark">
+                        <th class="not-export-column">ID</th>
+                        <th class="not-export-column">Created at</th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -161,6 +170,13 @@
 
             // DATATABLE FUNCTION
             function dataTable() {
+                // FOR FOOTER GENERATE OF INPUT
+                $('#dataTable tfoot th').each(function(i) {
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
+                    $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
+                        '" data-index="' + i + '" />');
+                });
+
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
                         url: BASE_API + '/datatable'
@@ -192,10 +208,9 @@
                             }
                         },
                         {
-                            data: "role_id",
+                            data: "roles.title",
                             render: function(data, type, row) {
-                                console.log(row)
-                                return `${row.roles.title}`
+                                return `${data}`
                             }
                         },
                         {
@@ -263,6 +278,14 @@
 
 
                 })
+
+                // FOOTER FILTER
+                $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
+                    dataTable
+                        .column($(this).data('index'))
+                        .search(this.value)
+                        .draw();
+                });
 
                 // TO ADD BUTTON TO DIV TABLE ACTION
                 dataTable.buttons().container().appendTo('#tableActions');

@@ -35,6 +35,8 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
+    Route::post('/change_password', [AuthController::class, 'changePassword']);
+
     // IMPORT RECORDS
     Route::post('/individual_records/import', [IndividualRecordController::class, 'import']);
 
@@ -119,6 +121,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ANOUNCEMENTS
     Route::get('/announcements', [AnnouncementController::class, 'index']);
+    Route::get('/announcements/posted', [AnnouncementController::class, 'posted']);
     Route::get('/announcements/datatable', [AnnouncementController::class, 'datatable']);
     Route::post('/announcements', [AnnouncementController::class, 'store']);
     Route::get('/announcements/{id}', [AnnouncementController::class, 'show']);

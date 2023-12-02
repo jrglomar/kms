@@ -147,7 +147,6 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
-                        <th class="not-export-column">Action</th>
                     </tr>
                 </tfoot>
             </table>
@@ -170,6 +169,14 @@
 
             // DATATABLE FUNCTION
             function dataTable() {
+
+                // FOR FOOTER GENERATE OF INPUT
+                $('#dataTable tfoot th').each(function(i) {
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
+                    $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
+                        '" data-index="' + i + '" />');
+                });
+
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
                         url: BASE_API + '/datatable'
@@ -277,6 +284,14 @@
                     },
 
                 })
+
+                // FOOTER FILTER
+                $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
+                    dataTable
+                        .column($(this).data('index'))
+                        .search(this.value)
+                        .draw();
+                });
 
                 // TO ADD BUTTON TO DIV TABLE ACTION
                 dataTable.buttons().container().appendTo('#tableActions');

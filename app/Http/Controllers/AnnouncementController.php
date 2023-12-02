@@ -18,6 +18,11 @@ class AnnouncementController extends Controller
         return Announcement::all();
     }
 
+    public function posted()
+    {
+        return Announcement::where('status', 'Posted')->get();
+    }
+
     public function datatable()
     {
         $data = Announcement::all();

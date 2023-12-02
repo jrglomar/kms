@@ -343,7 +343,12 @@
                             },
                             error: function(error) {
                                 console.log(error)
-                                if (error.responseJSON.errors == null) {
+                                if (error.responseJSON.message ==
+                                "Division by zero") {
+                                    swalAlert('warning',
+                                        "There is something wrong with the record, ensure file has atleast 3 individuals for and filled with correct formats and required inputs to use this multiple upload.")
+                                }
+                                else if (error.responseJSON.errors == null) {
                                     swalAlert('warning', error.responseJSON.message)
                                 } else {
                                     $.each(error.responseJSON.errors, function(key,

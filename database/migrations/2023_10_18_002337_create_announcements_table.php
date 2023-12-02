@@ -22,6 +22,7 @@ return new class extends Migration {
             // ADDED ATTR
             $table->string('title');
             $table->longText('description');
+            $table->string('status')->nullable();
         });
     }
 

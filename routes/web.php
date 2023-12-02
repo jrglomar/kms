@@ -82,6 +82,11 @@ Route::group(['middleware' => ['web']], function () {
                 return view('admin/slideshow-content/slideshow-content', ['page_title' => 'Slideshow Contents']);
             })->name('admin_post');
 
+            // ------------SETTINGS--------------- //
+            Route::get('/settings', function () {
+                return view('admin/settings/settings', ['page_title' => 'Settings']);
+            })->name('admin_settings');
+
             // ------------FAQS--------------- //
             Route::get('/faqs', function () {
                 return view('admin/faq/faq', ['page_title' => 'FAQs']);
@@ -124,7 +129,10 @@ Route::group(['middleware' => ['web']], function () {
                 return view('user/feeding-program/view-feeding-program', ['page_title' => 'Feeding Programs', 'feeding_program_id' => $id]);
             })->name('user_feeding_program_details');
 
-
+            // ------------SETTINGS--------------- //
+            Route::get('/settings', function () {
+                return view('user/settings/settings', ['page_title' => 'Settings']);
+            })->name('user_settings');
 
             // ------------ANNOUNCEMENTS--------------- //
             Route::get('/announcements', function () {
