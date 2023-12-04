@@ -36,8 +36,8 @@
                             <div class="form-group col-md-12">
                                 <label class="required-input">Status</label>
                                 <select class="form-control" id="status_edit" name="status_edit">
-                                    <option value="Pending">Pending</option>
-                                    <option value="Posted">Posted</option>
+                                    <option value="Draft">Draft</option>
+                                    <option value="Published">Published</option>
                                 </select>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
-                form_data.status = "Pending"
+                form_data.status = "Draft"
                 console.log(form_data)
 
                 // ajax opening tag

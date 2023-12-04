@@ -90,6 +90,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // FEEDING PROGRAM
     Route::get('/feeding_programs', [FeedingProgramController::class, 'index']);
+    Route::get('/feeding_programs/published', [FeedingProgramController::class, 'published']);
     Route::get('/feeding_programs/datatable', [FeedingProgramController::class, 'datatable']);
     Route::post('/feeding_programs', [FeedingProgramController::class, 'store']);
     Route::get('/feeding_programs/{id}', [FeedingProgramController::class, 'show']);
@@ -121,7 +122,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ANOUNCEMENTS
     Route::get('/announcements', [AnnouncementController::class, 'index']);
-    Route::get('/announcements/posted', [AnnouncementController::class, 'posted']);
+    Route::get('/announcements/published', [AnnouncementController::class, 'published']);
     Route::get('/announcements/datatable', [AnnouncementController::class, 'datatable']);
     Route::post('/announcements', [AnnouncementController::class, 'store']);
     Route::get('/announcements/{id}', [AnnouncementController::class, 'show']);

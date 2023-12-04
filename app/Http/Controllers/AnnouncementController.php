@@ -18,9 +18,9 @@ class AnnouncementController extends Controller
         return Announcement::all();
     }
 
-    public function posted()
+    public function published()
     {
-        return Announcement::where('status', 'Posted')->get();
+        return Announcement::where('status', 'Published')->get();
     }
 
     public function datatable()

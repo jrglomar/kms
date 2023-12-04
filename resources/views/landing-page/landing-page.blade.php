@@ -161,12 +161,12 @@
     <!--====== ABOUT PART ENDS ======-->
 
     {{-- ANNOUNCEMENTS --}}
-    <section id="contact" class="contact-area pt-120 pb-120">
-        <div class="container">
+    <section id="announcement_section" class="contact-area pt-120 pb-120">
+        <div class="announcement-container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
-                    <div class="announcement-container">
-                        <h2 class="text-center">Announcements</h2>
+                    <div class="container">
+                        <h2 class="text-center section-title">Announcements</h2>
                         <div id="announcementContainer">
 
                         </div>
@@ -178,16 +178,14 @@
     </section>
 
 
-    {{-- ANNOUNCEMENTS --}}
-    <section id="contact" class="contact-area pt-120 pb-120">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="feeding-program-container justify-content-center">
-                        <h2 class="text-center">Feeding Programs</h2>
-                        <div id="feedingProgramContainer" class="d-flex justify-content-between" >
+    {{-- FEEDING PROGRAM --}}
+    <section id="feeding_program_section" class="contact-area pt-120 pb-120">
+        <div class="event-container">
+            <div class="col-lg-12">
+                <div class="feeding-program-container">
+                    <h2 style="" class="text-center section-title">Feeding Programs</h2>
+                    <div id="feedingProgramContainer" class="m-4">
 
-                        </div>
                     </div>
                 </div>
             </div>
@@ -195,14 +193,14 @@
         </div> <!-- container -->
     </section>
 
-    <!--====== CONTACT PART START ======-->
+    <!--====== FAQ ======-->
 
-    <section id="contact" class="contact-area pt-120 pb-120">
+    <section id="faq_section" class="contact-area pt-120 pb-120">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
                     <div class="faq-container">
-                        <h2 class="text-center">Frequently Asked Questions</h2>
+                        <h2 class="text-center  section-title">Frequently Asked Questions</h2>
                         <div id="faqContainer" class="accordion">
 
                         </div>
@@ -351,6 +349,14 @@
     <!--====== Magnific Popup js ======-->
     <script src="landing_page_assets/js/jquery.magnific-popup.min.js"></script>
 
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+        integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     <!--====== Main js ======-->
     <script src="landing_page_assets/js/main.js"></script>
 
@@ -410,7 +416,7 @@
             fetchFaq();
 
             function fetchAnnouncement() {
-                let form_url = API_URL + "/announcements/posted";
+                let form_url = API_URL + "/announcements/published";
 
                 $.ajax({
                     url: form_url,
@@ -456,6 +462,64 @@
             }
 
             fetchAnnouncement();
+
+            function fetchFeedingProgram() {
+                let form_url = API_URL + "/feeding_programs/published";
+
+                $.ajax({
+                    url: form_url,
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        let html_content = ``
+
+                        console.log(data)
+
+                        data.forEach((el) => {
+                            html_content += `<div class="event-card">
+                                                    <div class="left">
+                                                        <div class="date-time dt1">
+                                                            <p id="date_of_program" class="date">${moment(el.date_of_program).format('ll')}</p>
+                                                            <p id="time_of_program" class="time">${moment(el.date_of_program).format('LT')}</p>
+                                                        </div>
+
+                                                        <div class="event-info">
+                                                            <h3 id="title" class="event-name">
+                                                                ${el.title}
+                                                            </h3>
+                                                            <h4 id="location" class="event-detail">
+                                                                Location: ${el.location}
+                                                            </h4>
+                                                            <p id="description" class="event-detail">
+                                                                ${el.description}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>`
+                        })
+
+                        $('#feedingProgramContainer').html(html_content)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
+
+            fetchFeedingProgram();
 
 
             $(document).on('click', '.btnView', function() {

@@ -49,6 +49,15 @@
                                 <textarea class="form-control" id="description_edit" name="description_edit" tabindex="2" rows="5"></textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="required-input">Status</label>
+                                <select class="form-control" id="status_edit" name="status_edit">
+                                    <option value="Draft">Draft</option>
+                                    <option value="Published">Published</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
@@ -128,7 +137,6 @@
                         <th class="not-export-column">ID</th>
                         <th class="not-export-column">Created at</th>
                         <th>Title</th>
-                        <th>Location</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
@@ -143,7 +151,6 @@
                         <th class="not-export-column">ID</th>
                         <th class="not-export-column">Created at</th>
                         <th>Title</th>
-                        <th>Location</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
@@ -200,9 +207,6 @@
                         },
                         {
                             data: "title",
-                        },
-                        {
-                            data: "location",
                         },
                         {
                             data: "date_of_program",
@@ -320,9 +324,7 @@
                 })
                 currDatetime = moment().format("YYYY-MM-DD HH:mm:ss");
                 form_data.date_posted = currDatetime
-                form_data.status = 'Upcoming';
-
-                console.log(form_data)
+                form_data.status = 'Draft';
 
                 // ajax opening tag
                 $.ajax({

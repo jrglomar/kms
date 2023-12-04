@@ -2795,7 +2795,13 @@ p {
 .faq-container {
     margin: 0 auto;
     padding: 4rem;
-    width: 48rem;
+    width:auto;
+}
+
+.announcement-container {
+    margin: 0 auto;
+    padding: 4rem;
+    width:auto;
 }
 
 .accordion .accordion-item {
@@ -3000,7 +3006,7 @@ p {
 .card-category-5,
 .card-category-6 {
     font-family: sans-serif;
-    margin: 45px;
+    margin: 20px;
     text-align: center;
 }
 .card-category-1 div,
@@ -4276,3 +4282,107 @@ p {
         height: 254px;
     }
 }
+
+.event-container {
+    width: 100%;
+    max-width: fit-content;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+
+.event-card {
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    margin:20px;
+  }
+  .event-card:hover {
+    box-shadow: #cfd5e0 0 0 10px 5px;
+  }
+  .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .date-time {
+    width: 200px;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 2px;
+  }
+
+  .dt1 {
+    background: #eceff8;
+  }
+  .dt2 {
+    background: #f8ecf8;
+  }
+  .dt3 {
+    background: #f8ecec;
+  }
+  .dt4 {
+    background: #eef8ec;
+  }
+
+  .date {
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+  }
+
+  .time {
+    font-size: 22px;
+    font-weight: 700;
+    color: black;
+  }
+
+  .event-detail {
+    font-size: 12px;
+    color: #4b4b4b;
+    margin-top: 5px;
+  }
+
+  .add-to-calender {
+    width: 120px;
+    display: inline-block;
+    background: #000000;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    border-radius: 6px;
+    margin: 0 10px;
+  }
+  .add-to-calender:hover {
+    box-shadow: #cfd5e0 0 0 10px 5px;
+    transform: scale(1.1);
+  }
+  .add-to-calender:hover ion-icon {
+    transform: rotate(360deg);
+  }
+
+  ion-icon {
+    color: white;
+    font-size: 17px;
+  }
+
+  h2.section-title {
+    border-bottom: 3px solid #f14836; /* Adjust the color and thickness as needed */
+    padding: 20px; /* Adjust spacing between title and line if needed */
+    width: 100%;
+  }

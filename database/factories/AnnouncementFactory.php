@@ -19,7 +19,7 @@ class AnnouncementFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'status' => $this->faker->randomElement(['Posted', 'Draft', 'Pending']),
+            'status' => $this->faker->randomElement(['Published', 'Draft']),
         ];
     }
 }
