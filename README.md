@@ -66,3 +66,29 @@ If you have already installed and set up the app, you can start it locally with 
 4. Open your web browser and navigate to the server address (by default, it's [http://127.0.0.1:8000](http://127.0.0.1:8000)) to access the KMS application.
 
 You have successfully installed, set up, and started the KMS (KA-In Monitoring System) application locally. Enjoy using it!
+
+
+## Login at APP_URL/login to setup system
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th><strong>Email</strong></th>
+                <th><strong>Password</strong></th>
+                <th><strong>Role</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>admin</td>
+                <td>User01</td>
+                <td>Admin</td>
+            </tr>
+            <tr>
+                <td>user</td>
+                <td>User01</td>
+                <td>User</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
