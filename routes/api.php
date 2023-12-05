@@ -32,6 +32,11 @@ Route::get('/user/search/{user}', [UserController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/announcements/published', [AnnouncementController::class, 'published']);
+Route::get('/feeding_programs/published', [FeedingProgramController::class, 'published']);
+Route::get('/faqs', [FaqController::class, 'index']);
+
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
@@ -90,7 +95,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // FEEDING PROGRAM
     Route::get('/feeding_programs', [FeedingProgramController::class, 'index']);
-    Route::get('/feeding_programs/published', [FeedingProgramController::class, 'published']);
     Route::get('/feeding_programs/datatable', [FeedingProgramController::class, 'datatable']);
     Route::post('/feeding_programs', [FeedingProgramController::class, 'store']);
     Route::get('/feeding_programs/{id}', [FeedingProgramController::class, 'show']);
@@ -122,7 +126,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // ANOUNCEMENTS
     Route::get('/announcements', [AnnouncementController::class, 'index']);
-    Route::get('/announcements/published', [AnnouncementController::class, 'published']);
     Route::get('/announcements/datatable', [AnnouncementController::class, 'datatable']);
     Route::post('/announcements', [AnnouncementController::class, 'store']);
     Route::get('/announcements/{id}', [AnnouncementController::class, 'show']);
@@ -131,7 +134,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/announcements/restore/{id}', [AnnouncementController::class, 'restore']);
 
     // FAQS
-    Route::get('/faqs', [FaqController::class, 'index']);
     Route::get('/faqs/datatable', [FaqController::class, 'datatable']);
     Route::post('/faqs', [FaqController::class, 'store']);
     Route::get('/faqs/{id}', [FaqController::class, 'show']);
