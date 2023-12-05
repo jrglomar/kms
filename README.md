@@ -73,7 +73,7 @@ You have successfully installed, set up, and started the KMS (KA-In Monitoring S
     <table>
         <thead>
             <tr>
-                <th><strong>Email</strong></th>
+                <th><strong>User</strong></th>
                 <th><strong>Password</strong></th>
                 <th><strong>Role</strong></th>
             </tr>
