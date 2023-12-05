@@ -108,7 +108,7 @@ class UserController extends Controller
     public function search($username)
     {
 
-        return User::where('username', 'like', '%'.$username.'%')->get();
+        return User::where('username', 'like', '%' . $username . '%')->get();
     }
 
 }

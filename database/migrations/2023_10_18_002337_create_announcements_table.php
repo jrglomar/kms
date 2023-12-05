@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             // FOR SOFT DELETES
             $table->softDeletes();
@@ -20,6 +22,7 @@ return new class extends Migration {
             // ADDED ATTR
             $table->string('title');
             $table->longText('description');
+            $table->string('status')->nullable();
         });
     }
 

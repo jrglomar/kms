@@ -23,7 +23,7 @@ class FeedingProgramFactory extends Factory
             'time_of_program' => $this->faker->time('H:i'),
             'date_of_program' => $this->faker->date,
             'date_posted' => $this->faker->dateTimeThisYear,
-            'status' => $this->faker->randomElement(['Draft', 'Published', 'Archived']),
+            'status' => $this->faker->randomElement(['Draft', 'Published']),
         ];
     }
 }

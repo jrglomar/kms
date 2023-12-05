@@ -82,6 +82,11 @@ Route::group(['middleware' => ['web']], function () {
                 return view('admin/slideshow-content/slideshow-content', ['page_title' => 'Slideshow Contents']);
             })->name('admin_post');
 
+            // ------------SETTINGS--------------- //
+            Route::get('/settings', function () {
+                return view('admin/settings/settings', ['page_title' => 'Settings']);
+            })->name('admin_settings');
+
             // ------------FAQS--------------- //
             Route::get('/faqs', function () {
                 return view('admin/faq/faq', ['page_title' => 'FAQs']);
@@ -91,6 +96,54 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/generate_reports', function () {
                 return view('admin/generate-report/generate-report', ['page_title' => 'Generate Reports']);
             })->name('admin_generate_report');
+        }
+    );
+
+    Route::group(
+        [
+            'middleware' => ['auth:sanctum', 'role.user'],
+            'prefix' => '/user',
+        ],
+        function () {
+
+            // ------------DASHBOARD--------------- //
+            Route::get('/dashboard', function () {
+                return view('user/dashboard/dashboard', ['page_title' => 'Dashboard']);
+            })->name('user_dashboard');
+
+            // ------------INDIVIDUAL RECORDS--------------- //
+            Route::get('/individual_records', function () {
+                return view('user/individual-record/individual-record', ['page_title' => 'Individual Records']);
+            })->name('user_individual_record');
+
+            Route::get('/individual_records/individual_record/{id}', function ($id) {
+                return view('user/individual-record/view-individual-record', ['page_title' => 'Individual Records', 'individual_record_id' => $id]);
+            })->name('user_individual_record_details');
+
+            // ------------FEEDING PROGRAMS--------------- //
+            Route::get('/feeding_programs', function () {
+                return view('user/feeding-program/feeding-program', ['page_title' => 'Feeding Programs']);
+            })->name('user_feeding_program');
+
+            Route::get('/feeding_programs/feeding_program/{id}', function ($id) {
+                return view('user/feeding-program/view-feeding-program', ['page_title' => 'Feeding Programs', 'feeding_program_id' => $id]);
+            })->name('user_feeding_program_details');
+
+            // ------------SETTINGS--------------- //
+            Route::get('/settings', function () {
+                return view('user/settings/settings', ['page_title' => 'Settings']);
+            })->name('user_settings');
+
+            // ------------ANNOUNCEMENTS--------------- //
+            Route::get('/announcements', function () {
+                return view('user/announcement/announcement', ['page_title' => 'Announcements']);
+            })->name('user_announcement');
+
+            // ------------FAQS--------------- //
+            Route::get('/faqs', function () {
+                return view('user/faq/faq', ['page_title' => 'FAQs']);
+            })->name('user_faq');
+
         }
     );
 

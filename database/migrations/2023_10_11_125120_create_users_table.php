@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             // FOR SOFT DELETES
             $table->softDeletes();

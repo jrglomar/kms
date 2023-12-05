@@ -8,6 +8,10 @@ use App\Http\Requests\StoreIndividualRecordRequest;
 use App\Http\Requests\UpdateIndividualRecordRequest;
 use Yajra\DataTables\Facades\DataTables;
 
+use App\Imports\IndividualRecordImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 class IndividualRecordController extends Controller
 {
     /**
@@ -33,6 +37,19 @@ class IndividualRecordController extends Controller
     public function create()
     {
 
+    }
+
+
+    public function import(StoreIndividualRecordRequest $request)
+    {
+        $file = $request->file('file');
+
+        if ($file) {
+            Excel::import(new IndividualRecordImport, $file);
+            return 'success';
+        } else {
+            return 'error';
+        }
     }
 
     /**

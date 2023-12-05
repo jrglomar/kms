@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryOfIndividualRecordController;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ use App\Http\Controllers\FeedingProgramIRLogsController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +32,29 @@ Route::get('/user/search/{user}', [UserController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/announcements/published', [AnnouncementController::class, 'published']);
+Route::get('/feeding_programs/published', [FeedingProgramController::class, 'published']);
+Route::get('/faqs', [FaqController::class, 'index']);
+
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::post('/change_password', [AuthController::class, 'changePassword']);
+
+    // IMPORT RECORDS
+    Route::post('/individual_records/import', [IndividualRecordController::class, 'import']);
+
+    // DASHBOARD
+    Route::get('/dashboard/getCounts', [DashboardController::class, 'getCounts']);
+
+    Route::get('/roles/datatable', [RoleController::class, 'datatable']);
+    Route::post('/roles', [RoleController::class, 'store']);
+    Route::get('/roles/{id}', [RoleController::class, 'show']);
+    Route::put('/roles/{id}', [RoleController::class, 'update']);
+    Route::delete('/roles/destroy/{id}', [RoleController::class, 'destroy']);
+    Route::put('/roles/restore/{id}', [RoleController::class, 'restore']);
+
 
     // ROLE
     Route::get('/roles', [RoleController::class, 'index']);
@@ -59,6 +82,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/individual_records/{id}', [IndividualRecordController::class, 'update']);
     Route::delete('/individual_records/destroy/{id}', [IndividualRecordController::class, 'destroy']);
     Route::put('/individual_records/restore/{id}', [IndividualRecordController::class, 'restore']);
+
+    // HISTORY OF INDIVIDUAL RECORD
+    Route::get('/history_of_individual_records', [HistoryOfIndividualRecordController::class, 'index']);
+    Route::get('/history_of_individual_records/datatable', [HistoryOfIndividualRecordController::class, 'datatable']);
+    Route::post('/history_of_individual_records', [HistoryOfIndividualRecordController::class, 'store']);
+    Route::get('/history_of_individual_records/{id}', [HistoryOfIndividualRecordController::class, 'show']);
+    Route::put('/history_of_individual_records/{id}', [HistoryOfIndividualRecordController::class, 'update']);
+    Route::delete('/history_of_individual_records/destroy/{id}', [HistoryOfIndividualRecordController::class, 'destroy']);
+    Route::put('/history_of_individual_records/restore/{id}', [HistoryOfIndividualRecordController::class, 'restore']);
+    Route::get('/history_of_individual_records/search_individual_records/{id}', [HistoryOfIndividualRecordController::class, 'search_individual_records']);
 
     // FEEDING PROGRAM
     Route::get('/feeding_programs', [FeedingProgramController::class, 'index']);
@@ -101,12 +134,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/announcements/restore/{id}', [AnnouncementController::class, 'restore']);
 
     // FAQS
-    Route::get('/faqs', [FaqController::class, 'index']);
     Route::get('/faqs/datatable', [FaqController::class, 'datatable']);
     Route::post('/faqs', [FaqController::class, 'store']);
     Route::get('/faqs/{id}', [FaqController::class, 'show']);
     Route::put('/faqs/{id}', [FaqController::class, 'update']);
     Route::delete('/faqs/destroy/{id}', [FaqController::class, 'destroy']);
     Route::put('/faqs/restore/{id}', [FaqController::class, 'restore']);
-
 });

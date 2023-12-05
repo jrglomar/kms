@@ -99,10 +99,10 @@
         $(document).ready(function() {
 
             // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/roles'
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/roles'
 
             // DATATABLE FUNCTION
             function dataTable() {
@@ -134,13 +134,14 @@
                         {
                             data: "deleted_at",
                             render: function(data, type, row) {
-                                if (data == null) {
+                                console.log(row.title)
+                                if (row.title == 'Admin' || row.title == 'User') {
+                                    return ``;
+                                } else {
                                     return `<div>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-warning btnEdit">Edit</button>
                                         <button id="${row.id}" type="button" class="btn btn-sm btn-danger btnDelete">Delete</button>
                                         </div>`;
-                                } else {
-                                    return '<button class="btn btn-danger btn-sm">Activate</button>';
                                 }
                             }
                         }

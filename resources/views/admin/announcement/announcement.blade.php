@@ -32,6 +32,15 @@
                                 <textarea class="form-control" id="description_edit" name="description_edit" tabindex="2" rows="5"></textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="required-input">Status</label>
+                                <select class="form-control" id="status_edit" name="status_edit">
+                                    <option value="Draft">Draft</option>
+                                    <option value="Published">Published</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
@@ -94,12 +103,22 @@
                         <th class="not-export-column">Created at</th>
                         <th width="20%">Title</th>
                         <th>Description</th>
+                        <th>Status</th>
                         <th class="not-export-column">Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
                 </tbody>
+                <tfoot>
+                    <tr class="text-dark">
+                        <th class="not-export-column">ID</th>
+                        <th class="not-export-column">Created at</th>
+                        <th width="20%">Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -113,13 +132,20 @@
         $(document).ready(function() {
 
             // GLOBAL VARIABLE
-            var APP_URL = "{{ env('APP_URL') }}"
-            var API_URL = "{{ env('API_URL') }}"
-            var API_TOKEN = localStorage.getItem("API_TOKEN")
-            var BASE_API = API_URL + '/announcements'
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/announcements'
 
             // DATATABLE FUNCTION
             function dataTable() {
+                // FOR FOOTER GENERATE OF INPUT
+                $('#dataTable tfoot th').each(function(i) {
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
+                    $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
+                        '" data-index="' + i + '" />');
+                });
+
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
                         url: BASE_API + '/datatable'
@@ -146,6 +172,9 @@
                         },
                         {
                             data: "description",
+                        },
+                        {
+                            data: "status",
                         },
                         {
                             data: "deleted_at",
@@ -211,6 +240,14 @@
 
                 })
 
+                // FOOTER FILTER
+                $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
+                    dataTable
+                        .column($(this).data('index'))
+                        .search(this.value)
+                        .draw();
+                });
+
                 // TO ADD BUTTON TO DIV TABLE ACTION
                 dataTable.buttons().container().appendTo('#tableActions');
             }
@@ -227,15 +264,16 @@
                 e.preventDefault()
 
                 // VARIABLES
-                var form_url = BASE_API
+                let form_url = BASE_API
 
                 // FORM DATA
-                var form = $("#createForm").serializeArray();
+                let form = $("#createForm").serializeArray();
 
-                var form_data = {}
+                let form_data = {}
                 $.each(form, function() {
                     form_data[[this.name]] = this.value;
                 })
+                form_data.status = "Draft"
                 console.log(form_data)
 
                 // ajax opening tag
@@ -273,8 +311,8 @@
 
             // EDIT FUNCTION
             $(document).on('click', '.btnEdit', function() {
-                var id = this.id;
-                var form_url = BASE_API + '/' + id;
+                let id = this.id;
+                let form_url = BASE_API + '/' + id;
 
                 $.ajax({
                     url: form_url,
@@ -289,6 +327,7 @@
                         $('.btnUpdate').attr('id', data.id)
                         $('#title_edit').val(data.title)
                         $('#description_edit').val(data.description)
+                        $('#status_edit').val(data.status)
                         $('#editModal').modal('show');
                     },
                     error: function(error) {
@@ -309,12 +348,12 @@
 
             // UPDATE FUNCTION
             $(document).on('click', '.btnUpdate', function() {
-                var id = this.id;
+                let id = this.id;
                 console.log(id)
-                var form_url = BASE_API + '/' + id;
+                let form_url = BASE_API + '/' + id;
 
                 // FORM DATA
-                var form = $("#editForm").serializeArray();
+                let form = $("#editForm").serializeArray();
                 let form_data = {}
 
                 $.each(form, function() {
@@ -358,7 +397,7 @@
 
             // DEACTIVATE FUNCTION
             $(document).on("click", ".btnDelete", function() {
-                var id = this.id;
+                let id = this.id;
                 let form_url = BASE_API + '/' + id
 
                 $.ajax({

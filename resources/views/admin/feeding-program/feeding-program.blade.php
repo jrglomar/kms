@@ -49,6 +49,15 @@
                                 <textarea class="form-control" id="description_edit" name="description_edit" tabindex="2" rows="5"></textarea>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="required-input">Status</label>
+                                <select class="form-control" id="status_edit" name="status_edit">
+                                    <option value="Draft">Draft</option>
+                                    <option value="Published">Published</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
 
                 </div>
@@ -128,7 +137,6 @@
                         <th class="not-export-column">ID</th>
                         <th class="not-export-column">Created at</th>
                         <th>Title</th>
-                        <th>Location</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
@@ -143,11 +151,9 @@
                         <th class="not-export-column">ID</th>
                         <th class="not-export-column">Created at</th>
                         <th>Title</th>
-                        <th>Location</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
-                        <th class="not-export-column">Action</th>
                     </tr>
                 </tfoot>
             </table>
@@ -170,6 +176,14 @@
 
             // DATATABLE FUNCTION
             function dataTable() {
+
+                // FOR FOOTER GENERATE OF INPUT
+                $('#dataTable tfoot th').each(function(i) {
+                    let title = $('#dataTable thead th').eq($(this).index()).text();
+                    $(this).html('<input size="15" class="form-control" type="text" placeholder="' + title +
+                        '" data-index="' + i + '" />');
+                });
+
                 dataTable = $('#dataTable').DataTable({
                     "ajax": {
                         url: BASE_API + '/datatable'
@@ -193,9 +207,6 @@
                         },
                         {
                             data: "title",
-                        },
-                        {
-                            data: "location",
                         },
                         {
                             data: "date_of_program",
@@ -278,6 +289,14 @@
 
                 })
 
+                // FOOTER FILTER
+                $(dataTable.table().container()).on('keyup', 'tfoot input', function() {
+                    dataTable
+                        .column($(this).data('index'))
+                        .search(this.value)
+                        .draw();
+                });
+
                 // TO ADD BUTTON TO DIV TABLE ACTION
                 dataTable.buttons().container().appendTo('#tableActions');
             }
@@ -305,9 +324,7 @@
                 })
                 currDatetime = moment().format("YYYY-MM-DD HH:mm:ss");
                 form_data.date_posted = currDatetime
-                form_data.status = 'Upcoming';
-
-                console.log(form_data)
+                form_data.status = 'Draft';
 
                 // ajax opening tag
                 $.ajax({

@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="/">
                                 <h2>KMS</h2>
                                 {{-- <img src="{{ asset('landing_page_assets/images/logo.png') }}" alt="Logo"> --}}
                             </a>
@@ -136,7 +136,8 @@
                 <div class="col-lg-9">
                     <div class="about-title text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                         <h6 class="welcome">WELCOME</h6>
-                        <h3 class="title"><span>Discover the convenience of real-time BMI monitoring</span>, empowering you to take control of your health and fitness journey effortlessly.</h3>
+                        <h3 class="title"><span>Discover the convenience of real-time BMI monitoring</span>, empowering
+                            you to take control of your health and fitness journey effortlessly.</h3>
                     </div>
                 </div>
             </div> <!-- row -->
@@ -159,17 +160,51 @@
 
     <!--====== ABOUT PART ENDS ======-->
 
-    <!--====== CONTACT PART START ======-->
+    {{-- ANNOUNCEMENTS --}}
+    <section id="announcement_section" class="contact-area pt-120 pb-120">
+        <div class="announcement-container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="container">
+                        <h2 class="text-center section-title">Announcements</h2>
+                        <div id="announcementContainer">
 
-    <section id="contact" class="contact-area pt-120 pb-120">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+
+    {{-- FEEDING PROGRAM --}}
+    <section id="feeding_program_section" class="contact-area pt-120 pb-120">
+        <div class="event-container">
+            <div class="col-lg-12">
+                <div class="feeding-program-container">
+                    <h2 style="" class="text-center section-title">Feeding Programs</h2>
+                    <div id="feedingProgramContainer" class="m-4">
+
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== FAQ ======-->
+
+    <section id="faq_section" class="contact-area pt-120 pb-120">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-4">
-                    <div class="section-title text-center pb-20 wow fadeInUp" data-wow-duration="1s"
-                        data-wow-delay="0.3s">
-                        <h6 class="sub-title">Our Contact</h6>
-                        <h4 class="title">Get In <span>Touch.</span></h4>
-                    </div> <!-- section title -->
+                <div class="col-lg-12">
+                    <div class="faq-container">
+                        <h2 class="text-center  section-title">Frequently Asked Questions</h2>
+                        <div id="faqContainer" class="accordion">
+
+                        </div>
+                    </div>
                 </div>
             </div> <!-- row -->
             {{-- <div class="contact-info pt-30">
@@ -219,71 +254,51 @@
 
     <!--====== FOOTER PART START ======-->
 
-    {{-- <footer id="footer" class="footer-area bg_cover"
+    <footer id="footer" class="footer-area bg_cover"
         style="background-image: url(landing_page_assets/images/footer-bg.jpg)">
         <div class="container">
             <div class="footer-widget pt-30 pb-70">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6 order-sm-1 order-lg-1">
+                    <div class="col-lg-4 col-sm-6 order-sm-1 order-lg-1">
                         <div class="footer-about pt-40">
-                            <a href="#">
-                                <img src="landing_page_assets/images/logo.png" alt="Logo">
-                            </a>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus,
-                                repudiandae! Totam, nemo sed? Provident.</p>
-                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus</p>
+                            <div class="footer-title">
+                                <h5 class="title">KA-In Monitoring System</h5>
+                            </div>
+                            <p class="text">A system that employs a monitoring system to store all data in a database
+                                for the purpose of overseeing individuals' information, monitoring their records, and
+                                evaluating their health.</p>
                         </div> <!-- footer about -->
                     </div>
-                    <div class="col-lg-3 col-sm-6 order-sm-3 order-lg-2">
+                    <div class="col-lg-4 col-sm-6 order-sm-3 order-lg-2">
                         <div class="footer-link pt-40">
                             <div class="footer-title">
                                 <h5 class="title">Services</h5>
                             </div>
                             <ul>
-                                <li><a href="#">Business Consultancy</a></li>
-                                <li><a href="#">Digital Marketing</a></li>
-                                <li><a href="#">Market Analysis</a></li>
-                                <li><a href="#">Web Development</a></li>
+                                <li><a href="#">Individual Records Monitoring</a></li>
+                                <li><a href="#">BMI Categorized</a></li>
+                                <li><a href="#">Schedule a Program</a></li>
+                                <li><a href="#"></a></li>
                             </ul>
                         </div> <!-- footer link -->
                     </div>
-                    <div class="col-lg-3 col-sm-6 order-sm-4 order-lg-3">
+                    <div class="col-lg-4 col-sm-6 order-sm-4 order-lg-3">
                         <div class="footer-link pt-40">
                             <div class="footer-title">
                                 <h5 class="title">About Us</h5>
                             </div>
                             <ul>
-                                <li><a href="#">Overview</a></li>
-                                <li><a href="#">Why us</a></li>
-                                <li><a href="#">Awards & Recognitions</a></li>
-                                <li><a href="#">Team</a></li>
+                                <li><a href="#">Students</a></li>
+                                <li><a href="#">Development Team</a></li>
+                                <li><a href="#">Technological University of the Philippines, Manila</a></li>
                             </ul>
                         </div> <!-- footer link -->
                     </div>
-                    <div class="col-lg-3 col-sm-6 order-sm-2 order-lg-4">
-                        <div class="footer-contact pt-40">
-                            <div class="footer-title">
-                                <h5 class="title">Contact Info</h5>
-                            </div>
-                            <div class="contact pt-10">
-                                <p class="text">21 King Street, Melbourne <br>
-                                    Victoria, 1202 Australia.</p>
-                                <p class="text">support@uideck.com</p>
-                                <p class="text">+99 000 555 66 22</p>
 
-                                <ul class="social mt-40">
-                                    <li><a href="#"><i class="lni-facebook"></i></a></li>
-                                    <li><a href="#"><i class="lni-twitter"></i></a></li>
-                                    <li><a href="#"><i class="lni-instagram"></i></a></li>
-                                    <li><a href="#"><i class="lni-linkedin"></i></a></li>
-                                </ul>
-                            </div> <!-- contact -->
-                        </div> <!-- footer contact -->
-                    </div>
                 </div> <!-- row -->
             </div>
         </div>
-    </footer> --}}
+    </footer>
 
     <!--====== FOOTER PART ENDS ======-->
 
@@ -292,8 +307,6 @@
     <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
 
     <!--====== BACK TOP TOP PART ENDS ======-->
-
-
 
 
     <!--====== Jquery js ======-->
@@ -336,8 +349,190 @@
     <!--====== Magnific Popup js ======-->
     <script src="landing_page_assets/js/jquery.magnific-popup.min.js"></script>
 
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+        integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     <!--====== Main js ======-->
     <script src="landing_page_assets/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // GLOBAL VARIABLE
+            const APP_URL = "{{ env('APP_URL') }}"
+            const API_URL = "{{ env('API_URL') }}"
+            const API_TOKEN = localStorage.getItem("API_TOKEN")
+            const BASE_API = API_URL + '/faqs'
+
+
+
+            function fetchFaq() {
+                let form_url = BASE_API;
+
+                $.ajax({
+                    url: form_url,
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        let html_content = ``
+
+                        console.log(data)
+
+                        data.forEach((el) => {
+                            html_content += `<div class="accordion-item">
+                                <button class="btnView" id="${el.id}" aria-expanded="false"><span
+                                        class="accordion-title">Q: ${el.question}</span><span class="icon" aria-hidden="true"></span></button>
+                                <div class="accordion-content">
+                                    <p>A: ${el.answer}</p>
+                                </div>
+                            </div>`
+                        })
+
+                        $('#faqContainer').html(html_content)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
+
+            fetchFaq();
+
+            function fetchAnnouncement() {
+                let form_url = API_URL + "/announcements/published";
+
+                $.ajax({
+                    url: form_url,
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        let html_content = ``
+
+                        console.log(data)
+
+                        data.forEach((el) => {
+                            html_content += `<div class="card-category-1">
+                                                <div class="basic-card basic-card-aqua">
+                                                    <div class="card-content">
+                                                        <span class="card-title">${el.title}</span>
+                                                        <p class="card-text">
+                                                            ${el.description}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>`
+                        })
+
+                        $('#announcementContainer').html(html_content)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
+
+            fetchAnnouncement();
+
+            function fetchFeedingProgram() {
+                let form_url = API_URL + "/feeding_programs/published";
+
+                $.ajax({
+                    url: form_url,
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": API_TOKEN,
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        let html_content = ``
+
+                        console.log(data)
+
+                        data.forEach((el) => {
+                            html_content += `<div class="event-card">
+                                                    <div class="left">
+                                                        <div class="date-time dt1">
+                                                            <p id="date_of_program" class="date">${moment(el.date_of_program).format('ll')}</p>
+                                                            <p id="time_of_program" class="time">${moment(el.date_of_program).format('LT')}</p>
+                                                        </div>
+
+                                                        <div class="event-info">
+                                                            <h3 id="title" class="event-name">
+                                                                ${el.title}
+                                                            </h3>
+                                                            <h4 id="location" class="event-detail">
+                                                                Location: ${el.location}
+                                                            </h4>
+                                                            <p id="description" class="event-detail">
+                                                                ${el.description}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>`
+                        })
+
+                        $('#feedingProgramContainer').html(html_content)
+                    },
+                    error: function(error) {
+                        console.log(error)
+                        if (error.responseJSON.errors == null) {
+                            swalAlert('warning', error.responseJSON.message)
+                        } else {
+                            $.each(error.responseJSON.errors, function(key, value) {
+                                swalAlert('warning', value)
+                            });
+                        }
+                    }
+                    // ajax closing tag
+                })
+            }
+
+            fetchFeedingProgram();
+
+
+            $(document).on('click', '.btnView', function() {
+                if ($(this).attr("aria-expanded") === "true") {
+                    $(this).attr("aria-expanded", "false");
+                } else {
+                    $(this).attr("aria-expanded", "true");
+                }
+            });
+
+
+        })
+    </script>
 
 </body>
 

@@ -27,6 +27,11 @@ class FeedingProgramController extends Controller
             ->make(true);
     }
 
+    public function published()
+    {
+        return FeedingProgram::where('status', 'Published')->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

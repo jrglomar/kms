@@ -13,6 +13,8 @@ return new class extends Migration {
         Schema::create('feeding_program_i_r_logs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             // FOR SOFT DELETES
             $table->softDeletes();

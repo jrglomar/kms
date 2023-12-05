@@ -107,14 +107,14 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">EXTRAS</span>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ env('APP_URL') }}/admin/slideshow_contents" aria-expanded="false">
                         <span>
                             <i class="ti ti-user-plus"></i>
                         </span>
                         <span class="hide-menu">Slideshow Contents</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ env('APP_URL') }}/admin/faqs" aria-expanded="false">
                         <span>
