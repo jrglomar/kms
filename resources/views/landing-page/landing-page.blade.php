@@ -264,7 +264,7 @@
                             <div class="footer-title">
                                 <h5 class="title">KA-In Monitoring System</h5>
                             </div>
-                            <p class="text">A system that employs a monitoring system to store all data in a database
+                            <p class="text text-dark">A system that employs a monitoring system to store all data in a database
                                 for the purpose of overseeing individuals' information, monitoring their records, and
                                 evaluating their health.</p>
                         </div> <!-- footer about -->
@@ -485,7 +485,7 @@
                                                     <div class="left">
                                                         <div class="date-time dt1">
                                                             <p id="date_of_program" class="date">${moment(el.date_of_program).format('ll')}</p>
-                                                            <p id="time_of_program" class="time">${moment(el.date_of_program).format('LT')}</p>
+                                                            <p id="time_of_program" class="time">${moment(el.date_of_program + " " + el.time_of_program).format('LT')}</p>
                                                         </div>
 
                                                         <div class="event-info">

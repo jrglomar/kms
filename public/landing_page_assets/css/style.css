@@ -4388,3 +4388,8 @@ p {
     padding: 20px; /* Adjust spacing between title and line if needed */
     width: 100%;
   }
+
+
+  .r-text {
+    color: #ffffff;
+  }
